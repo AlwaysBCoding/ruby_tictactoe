@@ -23,7 +23,7 @@ class Board
   end
   
   def draw
-    visual_board = squares.map { |row| row.map { |sq| sq.text_value } }
+    visual_board = squares.map { |row| row.map { |sq| sq.text_value.to_s } }
     visual_board.each { |row| p row }
   end
     
@@ -59,15 +59,28 @@ class Board
   
   def calculate_computer_response(sq)
     return first_move(sq) if empty_squares.count > 7
-    return blocking_move(sq) if user_chance_to_win?
+    return winning_move if computer_chance_to_win?
+    return blocking_move(sq) if user_chance_to_win?(sq)
   end
   
   def first_move(sq)
     sq == square5 ? square1 : square5;
   end
   
-  def user_chance_to_win?
-    true
+  def winning_move
+    [0, 1, 2].each do |i|
+      computer_moves_in_row = squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
+      return empty_squares.detect { |sq| sq.y_value == i } if computer_moves_in_row.count == 2
+      
+      computer_moves_in_column = squares.flatten.select { |sq| sq.text_value == "O" && sq.x_value == i }
+      return empty_squares.detect { |sq| sq.x_value == i } if computer_moves_in_column.count == 2
+      
+      next if i == 0
+      computer_moves_in_diag = squares.flatten.select { |sq| sq.text_value == "O" && ( diag_for(sq) == i || diag_for(sq) == 3 ) }
+      return empty_squares.detect { |sq| diag_for(sq) == i } if computer_moves_in_diag.count == 2
+    end
+    
+    return nil
   end
   
   def blocking_move(user_sq)
@@ -79,6 +92,14 @@ class Board
     
     user_moves_in_current_diag = squares.flatten.select { |sq| sq.text_value == "X" && ( ( diag_for(sq) == diag_for(user_sq) && diag_for(user_sq) )|| diag_for(sq) == 3 ) }
     return empty_squares.detect { |sq| diag_for(sq) == diag_for(user_sq) } if user_moves_in_current_diag.count == 2
+  end
+  
+  def computer_chance_to_win?
+    return true if winning_move
+  end
+  
+  def user_chance_to_win?(user_sq)
+    return true if blocking_move(user_sq)
   end
   
   def diag_for(sq)
@@ -96,8 +117,6 @@ class Board
     end
   end
   
-  
-  # blocking_move
   # winning_move
   # take correct corner
   # take correct side

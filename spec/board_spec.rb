@@ -79,6 +79,33 @@ describe 'Board' do
       board.calculate_computer_response(sq).should == board.square3
     end
     
+    it 'takes the horizontal winning move [1,2,O]' do
+      board.make_user_move(board.square5)
+      board.make_computer_move(board.square1)
+      board.make_user_move(board.square9)
+      board.make_computer_move(board.square2)
+      sq = board.make_user_move(board.square7)
+      board.calculate_computer_response(sq).should == board.square3
+    end
+    
+    it 'takes the vertical winning move [O,5,8]' do
+      board.make_user_move(board.square1)
+      board.make_computer_move(board.square5)
+      board.make_user_move(board.square9)
+      board.make_computer_move(board.square8)
+      sq = board.make_user_move(board.square4)
+      board.calculate_computer_response(sq).should == board.square2
+    end
+    
+    it 'takes the diagonal winning move [1,5,O]' do
+      board.make_user_move(board.square3)
+      board.make_computer_move(board.square5)
+      board.make_user_move(board.square7)
+      board.make_computer_move(board.square1)
+      sq = board.make_user_move(board.square2)
+      board.calculate_computer_response(sq).should == board.square9
+    end
+    
   end
 
 end
