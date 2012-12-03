@@ -9,7 +9,7 @@ describe 'Board' do
   end
   
   it 'has nine squares' do
-    board.count_squares.should == 9
+    board.empty_squares.count.should == 9
   end
   
   it 'can find a square' do
@@ -17,7 +17,11 @@ describe 'Board' do
     square.should == board.square2
   end
   
-  it 'can accept a user move' do
+  it 'can sucessfully count the empty squares' do
+    board.square1.text_value = "X"
+    board.square2.text_value = "O"
     
+    board.empty_squares.count.should == 7
   end
+
 end

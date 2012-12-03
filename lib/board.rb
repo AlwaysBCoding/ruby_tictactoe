@@ -26,9 +26,9 @@ class Board
     visual_board = squares.map { |row| row.map { |sq| sq.text_value || "~" } }
     visual_board.each { |row| p row }
   end
-  
-  def count_squares
-    squares.flatten.count
+    
+  def empty_squares
+    squares.flatten.select { |sq| sq.empty? }
   end
   
   def find_square(x,y)

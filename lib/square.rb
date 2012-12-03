@@ -10,5 +10,10 @@ class Square
   def change_text_value(val)
     @text_value = val
   end  
+  
+  def empty?
+    return true if text_value != "X" && text_value != "O"
+  end
+  
 
 end
