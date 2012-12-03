@@ -8,9 +8,10 @@ while !board.game_over?
 
   print "\nChoose a number to place an 'X' there >> "
   user_move = gets.chomp
-
   chosen_square = board.detect_square(user_move)
-  chosen_square.text_value = "X"
+
+  board.make_user_move(chosen_square)
+  board.make_computer_move(board.calculate_computer_response(chosen_square))
 
   board.draw()
 

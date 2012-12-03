@@ -20,6 +20,7 @@ describe 'Board' do
   it 'can sucessfully count the empty squares' do
     board.square1.text_value = "X"
     board.square2.text_value = "O"
+    board.square3.text_value = "~"
     
     board.empty_squares.count.should == 7
   end

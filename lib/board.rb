@@ -47,4 +47,16 @@ class Board
     end
   end
   
+  def make_user_move(sq)
+    sq.text_value = "X"
+  end
+  
+  def make_computer_move(sq)
+    sq.text_value = "O"
+  end
+  
+  def calculate_computer_response(sq)
+    return square1
+  end
+  
 end
