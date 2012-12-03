@@ -16,4 +16,4 @@ while !board.game_over?
 
 end
 
-puts "GAME OVER!"
+puts "\nGAME OVER"

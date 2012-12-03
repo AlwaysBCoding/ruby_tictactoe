@@ -40,7 +40,7 @@ class Board
   end
   
   def game_over?
-    if squares.flatten.select { |sq| sq.text_value == "X" || sq.text_value == "O" }.length == 9
+    if empty_squares.count == 0
       return true
     else
       return false
