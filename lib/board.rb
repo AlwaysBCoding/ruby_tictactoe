@@ -64,11 +64,13 @@ class Board
   end
   
   def calculate_computer_response(sq)
-    return first_move(sq) if empty_squares.count > 7
-    return winning_move if computer_chance_to_win?
-    return blocking_move(sq) if user_chance_to_win?(sq)
-    return take_first_corner if take_first_corner
-    return take_first_side if take_first_side
+    unless empty_squares.count == 0
+      return first_move(sq) if empty_squares.count > 7
+      return winning_move if computer_chance_to_win?
+      return blocking_move(sq) if user_chance_to_win?(sq)
+      return take_first_corner if take_first_corner
+      return take_first_side if take_first_side
+    end
   end
   
   def first_move(sq)
