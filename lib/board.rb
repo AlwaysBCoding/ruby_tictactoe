@@ -73,6 +73,9 @@ class Board
   def blocking_move(user_sq)
     user_moves_in_current_row = squares.flatten.select { |sq| sq.x_value == user_sq.x_value && sq.text_value == "X" }
     return empty_squares.detect { |sq| sq.x_value == user_sq.x_value } if user_moves_in_current_row.count == 2 
+    
+    user_moves_in_current_column = squares.flatten.select { |sq| sq.y_value == user_sq.y_value && sq.text_value == "X" }
+    return empty_squares.detect { |sq| sq.y_value == user_sq.y_value } if user_moves_in_current_column.count == 2 
   end
   
   # blocking_move
