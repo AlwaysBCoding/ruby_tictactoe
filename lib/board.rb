@@ -32,7 +32,7 @@ class Board
   end
   
   def find_square(x,y)
-    Square.select { |x,y| x_value == x && y_value == y }
+    squares.flatten.detect { |sq| sq.x_value == x && sq.y_value == y }
   end
   
 end
