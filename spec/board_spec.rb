@@ -24,5 +24,19 @@ describe 'Board' do
     
     board.empty_squares.count.should == 7
   end
+  
+  describe "computer move response" do
+    
+    it 'takes the center on the first move' do
+      chosen_square = board.detect_square(1)
+      board.calculate_computer_response(chosen_square).should == board.square5 
+    end
+    
+    it 'takes the top left if the user takes the center' do
+      chosen_square = board.detect_square(5)
+      board.calculate_computer_response(chosen_square).should == board.square1
+    end
+    
+  end
 
 end

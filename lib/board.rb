@@ -23,7 +23,7 @@ class Board
   end
   
   def draw
-    visual_board = squares.map { |row| row.map { |sq| sq.text_value || "~" } }
+    visual_board = squares.map { |row| row.map { |sq| sq.text_value } }
     visual_board.each { |row| p row }
   end
     
@@ -56,7 +56,20 @@ class Board
   end
   
   def calculate_computer_response(sq)
-    return square1
+    return first_move(sq) if empty_squares.count > 7
   end
+  
+  def first_move(sq)
+   unless sq == square5
+      return square5
+    else
+      return square1
+    end
+  end
+  
+  # blocking_move
+  # winning_move
+  # take correct corner
+  # take correct side
   
 end
