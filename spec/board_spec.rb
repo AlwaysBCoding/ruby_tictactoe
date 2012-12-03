@@ -16,4 +16,8 @@ describe 'Board' do
     square = board.find_square(0,1)
     square.should == board.square2
   end
+  
+  it 'can accept a user move' do
+    
+  end
 end

@@ -1,5 +1,5 @@
 class Square
-  attr_reader :x_value, :y_value, :text_value
+  attr_accessor :x_value, :y_value, :text_value
   
   def initialize(x,y,text_value=nil)
     @x_value = x
