@@ -37,6 +37,20 @@ describe 'Board' do
       board.calculate_computer_response(chosen_square).should == board.square1
     end
     
+    it 'blocks the horizontal win [1,2,O]' do
+      board.make_user_move(board.square1)
+      board.make_computer_move(board.square5)
+      board.make_user_move(board.square2)
+      board.calculate_computer_response(board.square2).should == board.square3
+    end
+    
+    it 'blocks the horizontal win [7,O,9]' do
+      board.make_user_move(board.square7)
+      board.make_computer_move(board.square5)
+      sq = board.make_user_move(board.square9)
+      board.calculate_computer_response(sq).should == board.square8
+    end
+    
   end
 
 end

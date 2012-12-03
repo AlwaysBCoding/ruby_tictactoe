@@ -49,22 +49,30 @@ class Board
   
   def make_user_move(sq)
     sq.text_value = "X"
+    return sq
   end
   
   def make_computer_move(sq)
     sq.text_value = "O"
+    return sq
   end
   
   def calculate_computer_response(sq)
     return first_move(sq) if empty_squares.count > 7
+    return blocking_move(sq) if user_chance_to_win?
   end
   
   def first_move(sq)
-   unless sq == square5
-      return square5
-    else
-      return square1
-    end
+    sq == square5 ? square1 : square5;
+  end
+  
+  def user_chance_to_win?
+    true
+  end
+  
+  def blocking_move(user_sq)
+    user_moves_in_current_row = squares.flatten.select { |sq| sq.x_value == user_sq.x_value && sq.text_value == "X" }
+    return empty_squares.detect { |sq| sq.x_value == user_sq.x_value } if user_moves_in_current_row.count == 2 
   end
   
   # blocking_move
