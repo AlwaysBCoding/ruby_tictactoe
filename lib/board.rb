@@ -75,8 +75,27 @@ class Board
     return empty_squares.detect { |sq| sq.x_value == user_sq.x_value } if user_moves_in_current_row.count == 2 
     
     user_moves_in_current_column = squares.flatten.select { |sq| sq.y_value == user_sq.y_value && sq.text_value == "X" }
-    return empty_squares.detect { |sq| sq.y_value == user_sq.y_value } if user_moves_in_current_column.count == 2 
+    return empty_squares.detect { |sq| sq.y_value == user_sq.y_value } if user_moves_in_current_column.count == 2
+    
+    user_moves_in_current_diag = squares.flatten.select { |sq| sq.text_value == "X" && ( ( diag_for(sq) == diag_for(user_sq) && diag_for(user_sq) )|| diag_for(sq) == 3 ) }
+    return empty_squares.detect { |sq| diag_for(sq) == diag_for(user_sq) } if user_moves_in_current_diag.count == 2
   end
+  
+  def diag_for(sq)
+    case
+      when sq == square3
+        2
+      when sq == square7
+        2
+      when sq == square1
+        1
+      when sq == square9
+        1
+      when sq == square5
+        3
+    end
+  end
+  
   
   # blocking_move
   # winning_move

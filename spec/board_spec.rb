@@ -65,6 +65,20 @@ describe 'Board' do
       board.calculate_computer_response(sq).should == board.square3
     end
     
+    it 'blocks the diagonal win [3,5,O]' do
+      board.make_user_move(board.square5)
+      board.make_computer_move(board.square1)
+      sq = board.make_user_move(board.square3)
+      board.calculate_computer_response(sq).should == board.square7
+    end
+    
+    it 'blocks the diagonal win [7,5,O]' do
+      board.make_user_move(board.square5)
+      board.make_computer_move(board.square1)
+      sq = board.make_user_move(board.square7)
+      board.calculate_computer_response(sq).should == board.square3
+    end
+    
   end
 
 end
