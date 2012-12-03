@@ -22,6 +22,11 @@ class Board
       [@square7, @square8, @square9] ]
   end
   
+  def draw
+    visual_board = squares.map { |row| row.map { |sq| sq.text_value || "~" } }
+    visual_board.each { |row| p row }
+  end
+  
   def count_squares
     squares.flatten.count
   end
