@@ -61,6 +61,8 @@ class Board
     return first_move(sq) if empty_squares.count > 7
     return winning_move if computer_chance_to_win?
     return blocking_move(sq) if user_chance_to_win?(sq)
+    return take_first_corner if take_first_corner
+    return take_first_side if take_first_side
   end
   
   def first_move(sq)
@@ -102,6 +104,14 @@ class Board
     return true if blocking_move(user_sq)
   end
   
+  def take_first_corner
+    empty_squares.find { |sq| sq == square1 || sq == square3 || sq == square7 || sq == square9 }
+  end
+  
+  def take_first_side
+    empty_squares.find { |sq| sq == square2 || sq == square4 || sq == square6 || sq == square8 }
+  end
+  
   def diag_for(sq)
     case
       when sq == square3
@@ -117,7 +127,6 @@ class Board
     end
   end
   
-  # winning_move
   # take correct corner
   # take correct side
   
