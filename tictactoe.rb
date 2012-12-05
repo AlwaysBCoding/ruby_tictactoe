@@ -1,5 +1,7 @@
 require_relative 'lib/board.rb'
-require_relative 'lib/square.rb'
+# require_relative 'lib/square.rb'
+# require_relative 'lib/human.rb'
+# require_relative 'lib/computer.rb'
 
 board = Board.new
 board.draw()
@@ -9,7 +11,6 @@ while !board.game_over?
   print "\nChoose a number to place an 'X' there >> "
   user_move = gets.chomp
   
-#  p board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
   if board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
     chosen_square = board.detect_square(user_move)
 

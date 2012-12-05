@@ -1,3 +1,5 @@
+require 'square'
+
 describe 'Square' do
   
   it 'is initialized without a text_value' do
