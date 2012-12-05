@@ -106,6 +106,20 @@ describe 'Board' do
       board.calculate_computer_response(sq).should == board.square9
     end
     
+    it 'prevents the two corner opening [1,9,O]' do
+      board.make_user_move(board.square1)
+      board.make_computer_move(board.square5)
+      sq = board.make_user_move(board.square9)
+      board.calculate_computer_response(sq).should == board.square2
+    end
+    
+    it 'prevents the two corner opening [3,7,O]' do
+      board.make_user_move(board.square3)
+      board.make_computer_move(board.square5)
+      sq = board.make_user_move(board.square7)
+      board.calculate_computer_response(sq).should == board.square2
+    end
+    
   end
 
 end

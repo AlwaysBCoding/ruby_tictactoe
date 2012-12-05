@@ -22,6 +22,10 @@ class Board
       [@square7, @square8, @square9] ]
   end
   
+  def corners
+    [@square1, @square3, @square7, @square9]
+  end
+  
   def draw
     visual_board = squares.map { |row| row.map { |sq| sq.text_value.to_s } }
     visual_board.each { |row| p row }
@@ -68,6 +72,7 @@ class Board
       return first_move(sq) if empty_squares.count > 7
       return winning_move if computer_chance_to_win?
       return blocking_move(sq) if user_chance_to_win?(sq)
+      return take_first_side if user_starts_with_two_corners?
       return take_first_corner if take_first_corner
       return take_first_side if take_first_side
     end
@@ -112,12 +117,20 @@ class Board
     return true if blocking_move(user_sq)
   end
   
+  def user_starts_with_two_corners?
+    return true if corners.select { |sq| sq.text_value == "X" }.count == 2 && empty_squares.count == 6
+  end
+  
   def take_first_corner
     empty_squares.find { |sq| sq == square1 || sq == square3 || sq == square7 || sq == square9 }
   end
   
   def take_first_side
     empty_squares.find { |sq| sq == square2 || sq == square4 || sq == square6 || sq == square8 }
+  end
+  
+  def check_and_handle_edge_cases(user_sq)
+    
   end
   
   def diag_for(sq)
