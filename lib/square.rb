@@ -15,5 +15,10 @@ class Square
     return true if text_value != "X" && text_value != "O"
   end
   
+  def colored_text_value
+    return text_value.to_s.green if text_value == "X"
+    return text_value.to_s.red if text_value == "O"
+    return text_value.to_s.light_yellow
+  end
 
 end

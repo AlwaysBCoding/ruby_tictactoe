@@ -1,7 +1,5 @@
+require 'colorize'
 require_relative 'lib/board.rb'
-# require_relative 'lib/square.rb'
-# require_relative 'lib/human.rb'
-# require_relative 'lib/computer.rb'
 
 board = Board.new
 board.draw()

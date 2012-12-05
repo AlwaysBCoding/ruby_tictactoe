@@ -32,9 +32,15 @@ class Board
     [@square2, @square4, @square6, @square8]
   end
   
-  def draw
-    visual_board = squares.map { |row| row.map { |sq| sq.text_value.to_s } }
-    visual_board.each { |row| p row }
+  def draw()
+    puts "\n"
+    visual_board = []
+    visual_board << " #{@square1.colored_text_value} | #{@square2.colored_text_value} | #{@square3.colored_text_value} "
+    visual_board << " - - - - - "
+    visual_board << " #{@square4.colored_text_value} | #{@square5.colored_text_value} | #{@square6.colored_text_value} "
+    visual_board << " - - - - - "
+    visual_board << " #{@square7.colored_text_value} | #{@square8.colored_text_value} | #{@square9.colored_text_value} "
+    visual_board.each { |row| puts row }
   end
     
   def empty_squares
