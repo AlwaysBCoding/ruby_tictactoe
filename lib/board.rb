@@ -26,6 +26,10 @@ class Board
     [@square1, @square3, @square7, @square9]
   end
   
+  def sides
+    [@square2, @square4, @square6, @square8]
+  end
+  
   def draw
     visual_board = squares.map { |row| row.map { |sq| sq.text_value.to_s } }
     visual_board.each { |row| p row }
@@ -41,6 +45,10 @@ class Board
   
   def detect_square(val)
     squares.flatten.detect { |sq| sq.text_value == val.to_i }
+  end
+  
+  def user_has_square?(sq)
+    return true if sq.text_value == "X"
   end
   
   def game_over?
@@ -73,6 +81,7 @@ class Board
       return winning_move if computer_chance_to_win?
       return blocking_move(sq) if user_chance_to_win?(sq)
       return take_first_side if user_starts_with_two_corners?
+      return knight_solution if knight_opening?(sq)
       return take_first_corner if take_first_corner
       return take_first_side if take_first_side
     end
@@ -121,6 +130,10 @@ class Board
     return true if corners.select { |sq| sq.text_value == "X" }.count == 2 && empty_squares.count == 6
   end
   
+  def knight_opening?(user_sq)
+    return true if corners.select { |sq| sq.text_value == "X" }.count == 1 && sides.select { |sq| sq.text_value == "X" }.count == 1 && !blocking_move(user_sq) && empty_squares.count == 6
+  end
+  
   def take_first_corner
     empty_squares.find { |sq| sq == square1 || sq == square3 || sq == square7 || sq == square9 }
   end
@@ -129,8 +142,11 @@ class Board
     empty_squares.find { |sq| sq == square2 || sq == square4 || sq == square6 || sq == square8 }
   end
   
-  def check_and_handle_edge_cases(user_sq)
-    
+  def knight_solution
+    return square1 if ( user_has_square?(square3) && user_has_square?(square4) ) || ( user_has_square?(square7) && user_has_square?(square2) )
+    return square3 if ( user_has_square?(square1) && user_has_square?(square6) ) || ( user_has_square?(square9) && user_has_square?(square2) )
+    return square7 if ( user_has_square?(square9) && user_has_square?(square4) ) || ( user_has_square?(square1) && user_has_square?(square8) )
+    return square9 if ( user_has_square?(square3) && user_has_square?(square8) ) || ( user_has_square?(square7) && user_has_square?(square6) )
   end
   
   def diag_for(sq)

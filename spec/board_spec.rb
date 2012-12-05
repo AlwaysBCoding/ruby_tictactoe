@@ -125,6 +125,7 @@ describe 'Board' do
         board.make_user_move(board.square3)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square8)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square9
       end          
       
@@ -132,6 +133,7 @@ describe 'Board' do
         board.make_user_move(board.square3)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square4)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square1
       end    
     
@@ -139,6 +141,7 @@ describe 'Board' do
         board.make_user_move(board.square7)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square6)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square9
       end    
       
@@ -146,6 +149,7 @@ describe 'Board' do
         board.make_user_move(board.square7)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square2)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square1
       end    
     
@@ -153,6 +157,7 @@ describe 'Board' do
         board.make_user_move(board.square1)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square8)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square7
       end   
     
@@ -160,6 +165,7 @@ describe 'Board' do
         board.make_user_move(board.square1)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square6)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square3
       end    
     
@@ -167,6 +173,7 @@ describe 'Board' do
         board.make_user_move(board.square9)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square2)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square3
       end    
     
@@ -174,6 +181,7 @@ describe 'Board' do
         board.make_user_move(board.square9)
         board.make_computer_move(board.square5)
         sq = board.make_user_move(board.square4)
+        board.knight_opening?(sq).should be_true
         board.calculate_computer_response(sq).should == board.square7
       end
       
