@@ -120,6 +120,65 @@ describe 'Board' do
       board.calculate_computer_response(sq).should == board.square2
     end
     
-  end
+    describe "knight opening" do
+      it 'prevents the knight opening [3,8,O]' do
+        board.make_user_move(board.square3)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square8)
+        board.calculate_computer_response(sq).should == board.square9
+      end          
+      
+      it 'prevents the knight opening [3,4,O]' do
+        board.make_user_move(board.square3)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square4)
+        board.calculate_computer_response(sq).should == board.square1
+      end    
+    
+      it 'prevents the knight opening [7,6,O]' do
+        board.make_user_move(board.square7)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square6)
+        board.calculate_computer_response(sq).should == board.square9
+      end    
+      
+      it 'prevents the knight opening [7,2,O]' do
+        board.make_user_move(board.square7)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square2)
+        board.calculate_computer_response(sq).should == board.square1
+      end    
+    
+      it 'prevents the knight opening [1,8,O]' do
+        board.make_user_move(board.square1)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square8)
+        board.calculate_computer_response(sq).should == board.square7
+      end   
+    
+      it 'prevents the knight opening [1,6,O]' do
+        board.make_user_move(board.square1)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square6)
+        board.calculate_computer_response(sq).should == board.square3
+      end    
+    
+      it 'prevents the knight opening [9,2,O]' do
+        board.make_user_move(board.square9)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square2)
+        board.calculate_computer_response(sq).should == board.square3
+      end    
+    
+      it 'prevents the knight opening [9,4,O]' do
+        board.make_user_move(board.square9)
+        board.make_computer_move(board.square5)
+        sq = board.make_user_move(board.square4)
+        board.calculate_computer_response(sq).should == board.square7
+      end
+      
+    end # knight opening
+
+  end # calculate computer response
 
 end
