@@ -16,6 +16,8 @@ class Board
     @square7 = Square.new(2,0,7)
     @square8 = Square.new(2,1,8)
     @square9 = Square.new(2,2,9)
+    @human = Human.new
+    @computer = Computer.new
   end
   
   def squares
@@ -55,9 +57,9 @@ class Board
     squares.flatten.detect { |sq| sq.text_value == val.to_i }
   end
   
-  def user_has_square?(sq)
-    return true if sq.text_value == "X"
-  end
+  # def user_has_square?(sq)
+  #   return true if sq.text_value == "X"
+  # end
   
   def game_over?
     [0, 1, 2].each do |i|
@@ -152,10 +154,10 @@ class Board
   end
   
   def knight_solution
-    return square1 if ( user_has_square?(square3) && user_has_square?(square4) ) || ( user_has_square?(square7) && user_has_square?(square2) )
-    return square3 if ( user_has_square?(square1) && user_has_square?(square6) ) || ( user_has_square?(square9) && user_has_square?(square2) )
-    return square7 if ( user_has_square?(square9) && user_has_square?(square4) ) || ( user_has_square?(square1) && user_has_square?(square8) )
-    return square9 if ( user_has_square?(square3) && user_has_square?(square8) ) || ( user_has_square?(square7) && user_has_square?(square6) )
+    return square1 if ( @human.has_square?(square3) && @human.has_square?(square4) ) || ( @human.has_square?(square7) && @human.has_square?(square2) )
+    return square3 if ( @human.has_square?(square1) && @human.has_square?(square6) ) || ( @human.has_square?(square9) && @human.has_square?(square2) )
+    return square7 if ( @human.has_square?(square9) && @human.has_square?(square4) ) || ( @human.has_square?(square1) && @human.has_square?(square8) )
+    return square9 if ( @human.has_square?(square3) && @human.has_square?(square8) ) || ( @human.has_square?(square7) && @human.has_square?(square6) )
   end
   
   def diag_for(sq)

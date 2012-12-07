@@ -226,6 +226,6 @@ describe 'Board' do
       board.game_over?.should be_false
     end
     
-  end
+  end # #game_over? 
 
-end
+end # Board
