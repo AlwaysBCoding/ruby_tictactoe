@@ -4,6 +4,11 @@ class Computer
     return true if sq.text_value == "O"
   end
   
+  def make_move(sq)
+    sq.text_value = "O"
+    return sq
+  end
+  
   def winning_move(board)
     [0, 1, 2].each do |i|
       moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }

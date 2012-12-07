@@ -76,12 +76,7 @@ class Board
     sq.text_value = "X"
     return sq
   end
-  
-  def make_computer_move(sq)
-    sq.text_value = "O"
-    return sq
-  end
-  
+    
   def calculate_computer_response(board=nil, sq)
     unless empty_squares.count == 0
       return first_move(sq) if empty_squares.count > 7
