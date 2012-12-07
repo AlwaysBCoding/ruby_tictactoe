@@ -74,7 +74,7 @@ class Board
         
   def calculate_computer_response(board=nil, sq)
     unless empty_squares.count == 0
-      return first_move(sq) if empty_squares.count > 7
+      return @computer.first_move(board, sq) if empty_squares.count > 7
       return @computer.winning_move(board) if @computer.chance_to_win?(board)
       return @computer.blocking_move(board, sq) if @computer.blocking_move(board, sq)
       return @computer.take_first_side(board) if user_starts_with_two_corners?
@@ -82,10 +82,6 @@ class Board
       return @computer.take_first_corner(board) if @computer.take_first_corner(board)
       return @computer.take_first_side(board) if @computer.take_first_side(board)
     end
-  end
-  
-  def first_move(sq)
-    sq == square5 ? square1 : square5;
   end
     
   def user_chance_to_win?(user_sq)

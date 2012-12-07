@@ -9,6 +9,10 @@ class Computer
     return sq
   end
   
+  def first_move(board, sq)
+    sq == board.square5 ? board.square1 : board.square5;
+  end
+  
   def winning_move(board)
     [0, 1, 2].each do |i|
       moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
