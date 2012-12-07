@@ -86,7 +86,7 @@ class Board
     unless empty_squares.count == 0
       return first_move(sq) if empty_squares.count > 7
       return @computer.winning_move(board) if @computer.chance_to_win?(board)
-      return @computer.blocking_move(board, sq) if @computer.blocking_move(board, sq)#user_chance_to_win?(sq)
+      return @computer.blocking_move(board, sq) if @computer.blocking_move(board, sq)
       return @computer.take_first_side(board) if user_starts_with_two_corners?
       return knight_solution if knight_opening?(board, sq)
       return @computer.take_first_corner(board) if @computer.take_first_corner(board)
