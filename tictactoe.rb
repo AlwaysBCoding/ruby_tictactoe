@@ -13,7 +13,7 @@ while !board.game_over?
     chosen_square = board.detect_square(user_move)
 
     board.make_user_move(chosen_square)
-    board.make_computer_move(board.calculate_computer_response(chosen_square)) unless board.empty_squares.count == 0
+    board.make_computer_move(board.calculate_computer_response(board, chosen_square)) unless board.empty_squares.count == 0
     board.draw()
   else 
     puts "\nThat square has already been taken, what are you trying to pull?\n"
