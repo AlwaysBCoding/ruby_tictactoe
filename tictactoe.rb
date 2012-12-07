@@ -12,7 +12,7 @@ while !board.game_over?
   if board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
     chosen_square = board.detect_square(user_move)
 
-    board.make_user_move(chosen_square)
+    board.human.make_move(chosen_square)
     board.computer.make_move(board.calculate_computer_response(board, chosen_square)) unless board.empty_squares.count == 0
     board.draw()
   else 

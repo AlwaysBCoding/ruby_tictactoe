@@ -4,4 +4,9 @@ class Human
     return true if sq.text_value == "X"
   end
   
+  def make_move(sq)
+    sq.text_value = "X"
+    return sq
+  end
+  
 end

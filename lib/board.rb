@@ -71,12 +71,7 @@ class Board
     return true if empty_squares.count == 0
     return nil
   end
-    
-  def make_user_move(sq)
-    sq.text_value = "X"
-    return sq
-  end
-    
+        
   def calculate_computer_response(board=nil, sq)
     unless empty_squares.count == 0
       return first_move(sq) if empty_squares.count > 7
