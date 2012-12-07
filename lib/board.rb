@@ -86,9 +86,9 @@ class Board
     unless empty_squares.count == 0
       return first_move(sq) if empty_squares.count > 7
       return @computer.winning_move(board) if @computer.chance_to_win?(board)
-      return blocking_move(sq) if user_chance_to_win?(sq)
+      return @computer.blocking_move(board, sq) if @computer.blocking_move(board, sq)#user_chance_to_win?(sq)
       return @computer.take_first_side(board) if user_starts_with_two_corners?
-      return knight_solution if knight_opening?(sq)
+      return knight_solution if knight_opening?(board, sq)
       return @computer.take_first_corner(board) if @computer.take_first_corner(board)
       return @computer.take_first_side(board) if @computer.take_first_side(board)
     end
@@ -96,17 +96,6 @@ class Board
   
   def first_move(sq)
     sq == square5 ? square1 : square5;
-  end
-    
-  def blocking_move(user_sq)
-    user_moves_in_current_row = squares.flatten.select { |sq| sq.x_value == user_sq.x_value && sq.text_value == "X" }
-    return empty_squares.detect { |sq| sq.x_value == user_sq.x_value } if user_moves_in_current_row.count == 2 
-    
-    user_moves_in_current_column = squares.flatten.select { |sq| sq.y_value == user_sq.y_value && sq.text_value == "X" }
-    return empty_squares.detect { |sq| sq.y_value == user_sq.y_value } if user_moves_in_current_column.count == 2
-    
-    user_moves_in_current_diag = squares.flatten.select { |sq| sq.text_value == "X" && ( ( sq.diag_value == user_sq.diag_value && user_sq.diag_value )|| sq.diag_value == 3 ) }
-    return empty_squares.detect { |sq| sq.diag_value == user_sq.diag_value } if user_moves_in_current_diag.count == 2
   end
     
   def user_chance_to_win?(user_sq)
@@ -117,8 +106,8 @@ class Board
     return true if corners.select { |sq| sq.text_value == "X" }.count == 2 && empty_squares.count == 6
   end
   
-  def knight_opening?(user_sq)
-    return true if corners.select { |sq| sq.text_value == "X" }.count == 1 && sides.select { |sq| sq.text_value == "X" }.count == 1 && !blocking_move(user_sq) && empty_squares.count == 6
+  def knight_opening?(board, user_sq)
+    return true if corners.select { |sq| sq.text_value == "X" }.count == 1 && sides.select { |sq| sq.text_value == "X" }.count == 1 && !@computer.blocking_move(board, user_sq) && empty_squares.count == 6
   end
 
   def knight_solution
