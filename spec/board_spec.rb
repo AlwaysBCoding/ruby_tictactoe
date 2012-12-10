@@ -188,44 +188,5 @@ describe 'Board' do
     end # knight opening
 
   end # calculate computer response
-  
-  describe '#game_over?' do
-    
-    it 'ends the game at a horizontal win' do
-      board.computer.make_move(board.square1)
-      board.computer.make_move(board.square2)
-      board.computer.make_move(board.square3)
-      board.game_over?.should be_true
-    end
-    
-    it 'ends the game at a vertical win' do
-      board.computer.make_move(board.square3)
-      board.computer.make_move(board.square6)
-      board.computer.make_move(board.square9)
-      board.game_over?.should be_true
-    end
-    
-    it 'ends the game at a diagonal win' do
-      board.computer.make_move(board.square3)
-      board.computer.make_move(board.square5)
-      board.computer.make_move(board.square7)
-      board.game_over?.should be_true
-    end
-    
-    it 'ends the game at a draw' do
-      9.times do |i|
-        board.human.make_move(board.send("square#{i+1}".to_sym))
-      end
-      board.game_over?.should be_true 
-    end
-    
-    it "doesn't end the game prematurely" do
-      8.times do |i|
-        board.human.make_move(board.send("square#{i+1}".to_sym))
-      end
-      board.game_over?.should be_false
-    end
-    
-  end # #game_over? 
 
 end # Board

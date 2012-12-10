@@ -17,7 +17,7 @@ class Board
     @square8 = Square.new(2,1,nil,8)
     @square9 = Square.new(2,2,1,9)
     @human = Human.new
-    @computer = Computer.new
+    @computer = Computer.new 
   end
   
   def squares
@@ -55,21 +55,6 @@ class Board
   
   def detect_square(val)
     squares.flatten.detect { |sq| sq.text_value == val.to_i }
-  end
-  
-  def game_over?
-    [0, 1, 2].each do |i|
-      computer_moves_in_row = squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
-      computer_moves_in_column = squares.flatten.select { |sq| sq.text_value == "O" && sq.x_value == i }      
-      return true if computer_moves_in_row.count == 3 || computer_moves_in_column.count == 3
-      
-      next if i == 0
-      computer_moves_in_diag = squares.flatten.select { |sq| sq.text_value == "O" && ( sq.diag_value == i || sq.diag_value == 3 ) }
-      return true if computer_moves_in_diag.count == 3
-    end
-    
-    return true if empty_squares.count == 0
-    return nil
   end
         
   def calculate_computer_response(board=nil, sq)
