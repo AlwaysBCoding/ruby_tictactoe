@@ -24,5 +24,4 @@ describe 'Board' do
     
     board.empty_squares.count.should == 7
   end
-  
 end # Board

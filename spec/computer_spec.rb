@@ -1,3 +1,4 @@
+require 'game'
 require 'computer'
 
 describe 'Computer' do
@@ -42,6 +43,18 @@ describe 'Computer' do
       game.computer.make_move(game.board.square5)
       sq = game.human.make_move(game.board.square9)
       game.computer.calculate_response(game, sq).should == game.board.square3
+    end
+    
+    it 'blocks the vertical win [3,O,9]' do
+      game.human.make_move(game.board.square1)
+      game.computer.make_move(game.board.square5)
+      game.human.make_move(game.board.square9)
+      game.computer.make_move(game.board.square2)
+      game.human.make_move(game.board.square8)
+      game.computer.make_move(game.board.square7)
+      sq = game.human.make_move(game.board.square3)
+      game.computer.blocking_move(game.board, sq).should be_true
+      game.computer.calculate_response(game, sq).should == game.board.square6
     end
     
     it 'blocks the diagonal win [3,5,O]' do

@@ -33,15 +33,15 @@ class Computer
     return true if winning_move(board)
   end
   
-  def blocking_move(board, user_sq)
-    user_moves_in_current_row = board.squares.flatten.select { |sq| sq.x_value == user_sq.x_value && sq.text_value == "X" }
-    return board.empty_squares.detect { |sq| sq.x_value == user_sq.x_value } if user_moves_in_current_row.count == 2 
+  def blocking_move(board, user_sq)    
+    human_moves_in_current_row = board.squares.flatten.select { |sq| sq.x_value == user_sq.x_value && sq.text_value == "X" }
+    return board.empty_squares.detect { |sq| sq.x_value == user_sq.x_value } if human_moves_in_current_row.count == 2 && board.empty_squares.detect { |sq| sq.x_value == user_sq.x_value }
     
-    user_moves_in_current_column = board.squares.flatten.select { |sq| sq.y_value == user_sq.y_value && sq.text_value == "X" }
-    return board.empty_squares.detect { |sq| sq.y_value == user_sq.y_value } if user_moves_in_current_column.count == 2
+    human_moves_in_current_column = board.squares.flatten.select { |sq| sq.y_value == user_sq.y_value && sq.text_value == "X" }
+    return board.empty_squares.detect { |sq| sq.y_value == user_sq.y_value } if human_moves_in_current_column.count == 2 && board.empty_squares.detect { |sq| sq.y_value == user_sq.y_value }
     
-    user_moves_in_current_diag = board.squares.flatten.select { |sq| sq.text_value == "X" && ( ( sq.diag_value == user_sq.diag_value && user_sq.diag_value )|| sq.diag_value == 3 ) }
-    return board.empty_squares.detect { |sq| sq.diag_value == user_sq.diag_value } if user_moves_in_current_diag.count == 2
+    human_moves_in_current_diag = board.squares.flatten.select { |sq| sq.text_value == "X" && ( ( sq.diag_value == user_sq.diag_value && user_sq.diag_value )|| sq.diag_value == 3 ) }
+    return board.empty_squares.detect { |sq| sq.diag_value == user_sq.diag_value } if human_moves_in_current_diag.count == 2 && board.empty_squares.detect { |sq| sq.diag_value == user_sq.diag_value }
     
     return nil
   end
