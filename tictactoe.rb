@@ -1,23 +1,23 @@
 require 'colorize'
-require_relative 'lib/board.rb'
+require_relative 'lib/game.rb'
 
-board = Board.new
-board.draw()
+game = Game.new
+game.board.draw()
 
-while !board.game_over?
+while !game.over?
 
   print "\nChoose a number to place an 'X' there >> "
   user_move = gets.chomp
   
-  if board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
-    chosen_square = board.detect_square(user_move)
+  if game.board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
+    chosen_square = game.board.detect_square(user_move)
 
-    board.human.make_move(chosen_square)
-    board.computer.make_move(board.calculate_computer_response(board, chosen_square)) unless board.empty_squares.count == 0
-    board.draw()
+    game.human.make_move(chosen_square)
+    game.computer.make_move(game.board.calculate_computer_response(game.board, chosen_square)) unless game.board.empty_squares.count == 0
+    game.board.draw()
   else 
     puts "\nThat square has already been taken, what are you trying to pull?\n"
-    board.draw()
+    game.board.draw()
   end
 
 end
