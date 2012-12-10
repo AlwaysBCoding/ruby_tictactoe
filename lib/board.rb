@@ -16,8 +16,6 @@ class Board
     @square7 = Square.new(2,0,2,7)
     @square8 = Square.new(2,1,nil,8)
     @square9 = Square.new(2,2,1,9)
-    @human = Human.new
-    @computer = Computer.new 
   end
   
   def squares
@@ -55,37 +53,6 @@ class Board
   
   def detect_square(val)
     squares.flatten.detect { |sq| sq.text_value == val.to_i }
-  end
-        
-  def calculate_computer_response(board=nil, sq)
-    unless empty_squares.count == 0
-      return @computer.first_move(board, sq) if empty_squares.count > 7
-      return @computer.winning_move(board) if @computer.chance_to_win?(board)
-      return @computer.blocking_move(board, sq) if @computer.blocking_move(board, sq)
-      return @computer.take_first_side(board) if user_starts_with_two_corners?
-      return knight_solution if knight_opening?(board, sq)
-      return @computer.take_first_corner(board) if @computer.take_first_corner(board)
-      return @computer.take_first_side(board) if @computer.take_first_side(board)
-    end
-  end
-    
-  def user_chance_to_win?(user_sq)
-    return true if blocking_move(user_sq)
-  end
-  
-  def user_starts_with_two_corners?
-    return true if corners.select { |sq| sq.text_value == "X" }.count == 2 && empty_squares.count == 6
-  end
-  
-  def knight_opening?(board, user_sq)
-    return true if corners.select { |sq| sq.text_value == "X" }.count == 1 && sides.select { |sq| sq.text_value == "X" }.count == 1 && !@computer.blocking_move(board, user_sq) && empty_squares.count == 6
-  end
-
-  def knight_solution
-    return square1 if ( @human.has_square?(square3) && @human.has_square?(square4) ) || ( @human.has_square?(square7) && @human.has_square?(square2) )
-    return square3 if ( @human.has_square?(square1) && @human.has_square?(square6) ) || ( @human.has_square?(square9) && @human.has_square?(square2) )
-    return square7 if ( @human.has_square?(square9) && @human.has_square?(square4) ) || ( @human.has_square?(square1) && @human.has_square?(square8) )
-    return square9 if ( @human.has_square?(square3) && @human.has_square?(square8) ) || ( @human.has_square?(square7) && @human.has_square?(square6) )
   end
   
 end

@@ -54,5 +54,23 @@ class Computer
     board.empty_squares.find { |sq| sq == board.square2 || sq == board.square4 || sq == board.square6 || sq == board.square8 }
   end
   
+  def knight_solution(board)
+    return board.square1 if ( board.square3.text_value == "X" && board.square4.text_value == "X" ) || ( board.square7.text_value == "X" && board.square2.text_value == "X" )
+    return board.square3 if ( board.square1.text_value == "X" && board.square6.text_value == "X" ) || ( board.square9.text_value == "X" && board.square2.text_value == "X" )
+    return board.square7 if ( board.square9.text_value == "X" && board.square4.text_value == "X" ) || ( board.square1.text_value == "X" && board.square8.text_value == "X" )
+    return board.square9 if ( board.square3.text_value == "X" && board.square8.text_value == "X" ) || ( board.square7.text_value == "X" && board.square6.text_value == "X" )
+  end
+  
+  def calculate_response(game=nil, sq)
+    unless game.board.empty_squares.count == 0
+      return first_move(game.board, sq) if game.board.empty_squares.count > 7
+      return winning_move(game.board) if chance_to_win?(game.board)
+      return blocking_move(game.board, sq) if blocking_move(game.board, sq)
+      return take_first_side(game.board) if game.two_corner_opening?
+      return knight_solution(game.board) if game.knight_opening?(game.board, sq)
+      return take_first_corner(game.board) if take_first_corner(game.board)
+      return take_first_side(game.board) if take_first_side(game.board)
+    end
+  end
   
 end

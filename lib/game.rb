@@ -26,4 +26,12 @@ class Game
     return nil
   end
   
+  def two_corner_opening?
+    return true if board.corners.select { |sq| sq.text_value == "X" }.count == 2 && board.empty_squares.count == 6
+  end
+      
+  def knight_opening?(board, user_sq)
+    return true if board.corners.select { |sq| sq.text_value == "X" }.count == 1 && board.sides.select { |sq| sq.text_value == "X" }.count == 1 && !computer.blocking_move(board, user_sq) && board.empty_squares.count == 6
+  end
+  
 end
