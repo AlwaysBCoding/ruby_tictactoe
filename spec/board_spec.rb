@@ -1,3 +1,4 @@
+require 'colorize'
 require 'board'
 
 describe 'Board' do
@@ -6,6 +7,10 @@ describe 'Board' do
   
   it 'creates a board' do
     board.should be_an_instance_of(Board)
+  end
+  
+  it 'can draw a board' do
+    board.draw()
   end
   
   it 'has nine squares' do

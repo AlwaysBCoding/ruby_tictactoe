@@ -5,9 +5,11 @@ require_relative './computer.rb'
 class Game
   attr_accessor :human, :computer, :board
   
-  def initialize
+  def initialize(player2)
     @human = Human.new
-    @computer = Computer.new
+    if player2 == "C"
+      @computer = Computer.new
+    end
     @board = Board.new
   end
   
@@ -32,6 +34,18 @@ class Game
       
   def knight_opening?(board, user_sq)
     return true if board.corners.select { |sq| sq.text_value == "X" }.count == 1 && board.sides.select { |sq| sq.text_value == "X" }.count == 1 && !computer.blocking_move(board, user_sq) && board.empty_squares.count == 6
+  end
+  
+  def print_instructions(player2)
+    if player2 == "C"
+      print "\nYou have chosen to play against the unbeatble computer A.I. Choose a number to place an 'X' there.\n"
+    elsif player2 == "H"
+      "\nBREAK"
+    end
+  end
+  
+  def ending_message()
+    puts "\nGAME OVER"
   end
   
 end
