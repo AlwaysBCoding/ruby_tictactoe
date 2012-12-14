@@ -1,6 +1,6 @@
-require_relative './square.rb'
-require_relative './human.rb'
-require_relative './computer.rb'
+require 'square'
+require 'human'
+require 'computer'
 
 class Board
   attr_accessor :square1, :square2, :square3, :square4, :square5,

@@ -1,6 +1,6 @@
-require_relative './board.rb'
-require_relative './human.rb'
-require_relative './computer.rb'
+require 'board'
+require 'human'
+require 'computer'
 
 class Game
   attr_accessor :human, :computer, :board

@@ -2,7 +2,7 @@ require 'game'
 
 describe 'Game' do
   
-  let(:game) { Game.new }
+  let(:game) { Game.new("C") }
   
   it 'begins a game with a human, computer, and board' do
     game.computer.should_not be_nil

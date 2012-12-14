@@ -3,7 +3,7 @@ require 'computer'
 
 describe 'Computer' do
   
-  let(:game) { Game.new }
+  let(:game) { Game.new("C") }
   
   describe "#calculate_response" do
     
