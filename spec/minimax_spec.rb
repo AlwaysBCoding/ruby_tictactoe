@@ -82,22 +82,41 @@ describe 'Computer' do
 
 		context 'calculates a value for moves' do
 
-			it 'can return 1 for only a winning move' do
+			it 'can return 1 for a won game' do
 				game.human.make_moves(game.square4, game.square5, game.square7, game.square9)
 				game.computer.make_moves(game.square1, game.square2, game.square6, game.square8, game.square3)
-				game.computer.minimax_score(game.board).should == 1
+				game.computer.score_board(game.board).should == 1
 			end
 			
-			it 'can return -1 for only a losing move' do
+			it 'can return -1 for a lost game' do
 				game.human.make_moves(game.square4, game.square5, game.square7, game.square9, game.square6)
 				game.computer.make_moves(game.square1, game.square2, game.square8)
-				game.computer.minimax_score(game.board).should == -1				
+				game.computer.score_board(game.board).should == -1				
 			end
 
-			it 'can return 0 for only a draw' do
+			it 'can return 0 for a drawn game' do
 				game.human.make_moves(game.square3, game.square4, game.square5, game.square9)
 				game.computer.make_moves(game.square1, game.square2, game.square6, game.square7, game.square8)
-				game.computer.minimax_score(game.board).should == 0							
+				game.computer.score_board(game.board).should == 0							
+			end
+
+			it 'or else it returns .5' do
+				game.human.make_moves(game.square1, game.square2)
+				game.computer.score_board(game.board).should == 0.5
+			end
+
+			it 'returns 1 for a horizontal winning move' do
+				game.computer.make_moves(game.square1, game.square2)
+				computer_move = game.computer.minimax(game)
+				game.computer.make_move(computer_move)
+				game.computer.score_board(game.board).should == 1
+			end
+
+			it 'returns 1 for a vertical winning move' do
+				game.computer.make_moves(game.square1, game.square4)
+				computer_move = game.computer.minimax(game)
+				game.computer.make_move(computer_move)
+				game.computer.score_board(game.board).should == 1
 			end
 
 		end
