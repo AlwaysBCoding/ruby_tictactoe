@@ -82,7 +82,7 @@ class Game
 	end
 
 	def draw?
-		return true if empty_squares == 0 && !human_win? && !computer_win?
+		return true if empty_squares.count == 0 && !human_win? && !computer_win?
 	end
 	
 	def method_missing(method_name, *args)
