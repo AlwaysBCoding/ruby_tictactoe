@@ -16,23 +16,17 @@ describe 'Computer' do
 			end
 
 			it 'for a horizontal win' do
-				game.computer.make_move(game.square1)
-				game.computer.make_move(game.square2)
-				game.computer.make_move(game.square3)
+				game.computer.make_moves(game.square1, game.square2, game.square3)
 				game.computer_win?.should be_true
 			end
 
 			it 'for a vertical win' do
-				game.computer.make_move(game.square1)
-				game.computer.make_move(game.square4)
-				game.computer.make_move(game.square7)
+				game.computer.make_moves(game.square1, game.square4, game.square7)
 				game.computer_win?.should be_true
 			end
 
 			it 'for a diagonal win' do
-				game.computer.make_move(game.square1)
-				game.computer.make_move(game.square5)
-				game.computer.make_move(game.square9)
+				game.computer.make_moves(game.square1, game.square5, game.square9)
 				game.computer_win?.should be_true
 			end
 		
@@ -48,23 +42,17 @@ describe 'Computer' do
 			end
 
 			it 'for a horizontal win' do
-				game.human.make_move(game.square1)
-				game.human.make_move(game.square2)
-				game.human.make_move(game.square3)
+				game.human.make_moves(game.square1, game.square2, game.square3)
 				game.human_win?.should be_true
 			end
 
 			it 'for a vertical win' do
-				game.human.make_move(game.square1)
-				game.human.make_move(game.square4)
-				game.human.make_move(game.square7)
+				game.human.make_moves(game.square1, game.square4, game.square7)
 				game.human_win?.should be_true
 			end
 
 			it 'for a diagonal win' do
-				game.human.make_move(game.square1)
-				game.human.make_move(game.square5)
-				game.human.make_move(game.square9)
+				game.human.make_moves(game.square1, game.square5, game.square9)
 				game.human_win?.should be_true
 			end
 
@@ -73,41 +61,29 @@ describe 'Computer' do
 		context 'a draw returns true' do
 			
 			it 'for a valid draw' do
-				game.human.make_move(game.square1)
-				game.computer.make_move(game.square2)
-				game.human.make_move(game.square3)
-				game.computer.make_move(game.square4)			
-				game.human.make_move(game.square5)
-				game.computer.make_move(game.square6)
-				game.computer.make_move(game.square7)
-				game.human.make_move(game.square8)
-				game.computer.make_move(game.square9)
+				game.human.make_moves(game.square1, game.square3, game.square5, game.square8)
+				game.computer.make_moves(game.square2, game.square4, game.square6, game.square7, game.square9)
 				game.draw?.should be_true
 			end
 			
 			it 'not for an uncompleted game' do
-				game.human.make_move(game.square1)
-				game.computer.make_move(game.square2)
-				game.human.make_move(game.square3)
-				game.computer.make_move(game.square4)			
-				game.human.make_move(game.square5)
-				game.computer.make_move(game.square6)
-				game.computer.make_move(game.square7)
-				game.human.make_move(game.square8)
+				game.human.make_moves(game.square1, game.square3, game.square5, game.square8)
+				game.computer.make_moves(game.square2, game.square4, game.square6, game.square7)
 				game.draw?.should be_false
 			end
 
 			it 'not for a won game' do
-				game.human.make_move(game.square1)
-				game.computer.make_move(game.square2)
-				game.human.make_move(game.square3)
-				game.computer.make_move(game.square4)			
-				game.human.make_move(game.square5)
-				game.computer.make_move(game.square6)
-				game.human.make_move(game.square7)
-				game.human.make_move(game.square8)
-				game.human.make_move(game.square9)
+				game.human.make_moves(game.square1, game.square3, game.square5, game.square7, game.square8, game.square9)
+				game.computer.make_moves(game.square2, game.square4, game.square6)
 				game.draw?.should be_false
+			end
+
+		end
+
+		context 'calculates a value for moves' do
+
+			it 'can return 1 for only a winning move' do
+				
 			end
 
 		end

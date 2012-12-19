@@ -8,5 +8,12 @@ class Human
     sq.text_value = "X"
     return sq
   end
-  
+
+	def make_moves(*args)
+		args.each do |sq|
+			sq.text_value = "X"
+		end
+	end
+
 end
+

@@ -7,9 +7,14 @@ class Computer
   def make_move(sq)
     sq.text_value = "O"
     return sq
-		p "Captured sq #{sq}"
   end
-  
+ 
+	def make_moves(*args)
+		args.each do |sq|
+			sq.text_value = "O"
+		end
+	end
+
   def first_move(board, sq)
     sq == board.square5 ? board.square1 : board.square5;
   end
