@@ -81,17 +81,21 @@ class Computer
 
 	def minimax(game, turn="computer")
 		moves_with_score = {}
-		
+
 		game.board.empty_squares.each do |move|
 			shadow_game = Marshal.load(Marshal.dump(game))
 			square_number = move.text_value
 			shadow_game.computer.make_move(shadow_game.send("square#{square_number}".to_sym))
 			score = score_board(shadow_game.board)
+
+			switch_turn(turn)
+			
 			moves_with_score["square#{square_number}"] = score
 		end
 
 		max_score = moves_with_score.values.max
 		minimax_square = moves_with_score.select { |k,v| v == max_score }.keys.first
+		
 		game.computer.send(:make_move, game.send(minimax_square.to_sym))
 	end
 
@@ -102,6 +106,14 @@ class Computer
 		return 0 if board.draw?
 		return 0.5	
 	
+	end
+
+	def switch_turn(turn)
+		if turn == "computer"
+			turn = "human"
+		else
+			turn = "computer"
+		end
 	end
 
 end

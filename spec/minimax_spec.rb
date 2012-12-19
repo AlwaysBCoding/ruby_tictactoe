@@ -119,6 +119,19 @@ describe 'Computer' do
 				game.computer.score_board(game.board).should == 1
 			end
 
+			it 'returns 1 for a diagonal winning move' do
+				game.computer.make_moves(game.square3, game.square7)
+				computer_move = game.computer.minimax(game)
+				game.computer.make_move(computer_move)
+				game.computer.score_board(game.board).should == 1
+			end
+
+			it 'knows not to horizontally lose' do
+				game.human.make_moves(game.square4, game.square5)
+				computer_move = game.computer.minimax(game)
+				computer_move.should == game.square6
+			end
+
 		end
 
 		# xit 'returns the center on the first move' do
