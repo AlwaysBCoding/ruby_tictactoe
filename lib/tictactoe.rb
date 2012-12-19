@@ -1,5 +1,6 @@
 require 'colorize'
-require_relative 'lib/game.rb'
+require 'game'
+require 'board'
 
 play_again = 'y'
 counter = 0

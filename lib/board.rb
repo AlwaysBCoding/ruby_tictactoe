@@ -46,7 +46,15 @@ class Board
   def empty_squares
     squares.flatten.select { |sq| sq.empty? }
   end
-  
+	
+	def human_squares
+		squares.flatten.select { |sq| sq.text_value == "X" }
+	end
+
+	def computer_squares
+		squares.flatten.select { |sq| sq.text_value == "O" }
+	end
+
   def find_square(x,y)
     squares.flatten.detect { |sq| sq.x_value == x && sq.y_value == y }
   end

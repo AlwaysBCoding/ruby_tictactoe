@@ -7,6 +7,7 @@ class Computer
   def make_move(sq)
     sq.text_value = "O"
     return sq
+		p "Captured sq #{sq}"
   end
   
   def first_move(board, sq)
@@ -72,5 +73,9 @@ class Computer
       return take_first_side(game.board) if take_first_side(game.board)
     end
   end
-  
+
+	def minimax(board, turn="computer")
+				
+	end
+
 end
