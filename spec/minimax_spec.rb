@@ -83,7 +83,21 @@ describe 'Computer' do
 		context 'calculates a value for moves' do
 
 			it 'can return 1 for only a winning move' do
-				
+				game.human.make_moves(game.square4, game.square5, game.square7, game.square9)
+				game.computer.make_moves(game.square1, game.square2, game.square6, game.square8, game.square3)
+				game.computer.minimax_score(game.board).should == 1
+			end
+			
+			it 'can return -1 for only a losing move' do
+				game.human.make_moves(game.square4, game.square5, game.square7, game.square9, game.square6)
+				game.computer.make_moves(game.square1, game.square2, game.square8)
+				game.computer.minimax_score(game.board).should == -1				
+			end
+
+			it 'can return 0 for only a draw' do
+				game.human.make_moves(game.square3, game.square4, game.square5, game.square9)
+				game.computer.make_moves(game.square1, game.square2, game.square6, game.square7, game.square8)
+				game.computer.minimax_score(game.board).should == 0							
 			end
 
 		end

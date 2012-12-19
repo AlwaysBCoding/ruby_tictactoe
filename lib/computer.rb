@@ -80,7 +80,12 @@ class Computer
   end
 
 	def minimax(board, turn="computer")
-				
+	end
+
+	def minimax_score(board, turn="computer")
+		return 1 if board.computer_win?
+		return -1 if board.human_win?
+		return 0 if board.draw?	
 	end
 
 end
