@@ -86,10 +86,10 @@ class Computer
 			shadow_game = Marshal.load(Marshal.dump(game))
 			square_number = move.text_value
 			shadow_game.computer.make_move(shadow_game.send("square#{square_number}".to_sym))
-			score = score_board(shadow_game.board)
 
 			switch_turn(turn)
 			
+			score = score_board(shadow_game.board)
 			moves_with_score["square#{square_number}"] = score
 		end
 

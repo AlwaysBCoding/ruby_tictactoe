@@ -18,7 +18,7 @@ describe 'Board' do
   end
   
   it 'can find a square' do
-    square = board.find_square(0,1)
+    square = board.find_square(1,0)
     square.should == board.square2
   end
   
