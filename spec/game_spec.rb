@@ -41,7 +41,7 @@ describe 'Game' do
     end
     
     it "doesn't end the game prematurely" do
-      8.times do |i|
+      2.times do |i|
         game.human.make_move(game.board.send("square#{i+1}".to_sym))
       end
       game.over?.should be_false

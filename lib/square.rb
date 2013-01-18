@@ -1,12 +1,13 @@
 class Square
-  attr_accessor :x_value, :y_value, :diag_value, :text_value
+  attr_accessor :x_value, :y_value, :diag_value, :number, :text_value
   
-  def initialize(x,y,diag=nil,text_value=nil)
+  def initialize(x,y,diag=nil,text_value=nil,number=nil)
     @x_value = x
     @y_value = y
     @diag_value = diag
     @text_value = text_value
-  end
+		@number = number
+	end
       
   def empty?
     return true if text_value != "X" && text_value != "O"

@@ -108,6 +108,7 @@ describe 'Computer' do
 			it 'returns 1 for a horizontal winning move' do
 				game.computer.make_moves(game.square1, game.square2)
 				computer_move = game.computer.minimax(game)
+				raise computer_move.inspect
 				game.computer.make_move(computer_move)
 				game.computer.score_board(game.board).should == 1
 			end
@@ -126,21 +127,21 @@ describe 'Computer' do
 				game.computer.score_board(game.board).should == 1
 			end
 
-			it 'knows not to horizontally lose' do
+			xit 'knows not to horizontally lose' do
 				game.human.make_moves(game.square4, game.square5)
-				computer_move = game.computer.minimax(game, "human")
+				computer_move = game.computer.minimax(game, :human)
 				computer_move.should == game.square6
 			end
 
-			it 'knows not to vertically lose' do
+			xit 'knows not to vertically lose' do
 				game.human.make_moves(game.square1, game.square7)
-				computer_move = game.computer.minimax(game, "human")
+				computer_move = game.computer.minimax(game, :human)
 				computer_move.should == game.square4
 			end
 					
-			it 'knows not to diagonally lose' do
+			xit 'knows not to diagonally lose' do
 				game.human.make_moves(game.square5, game.square3)
-				computer_move = game.computer.minimax(game, "human")
+				computer_move = game.computer.minimax(game, :human)
 				computer_move.should == game.square7
 			end
 			

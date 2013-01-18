@@ -7,15 +7,15 @@ class Board
                 :square6, :square7, :square8, :square9, :human, :computer
   
   def initialize
-    @square1 = Square.new(0,0,1,1)
-    @square2 = Square.new(1,0,nil,2)
-    @square3 = Square.new(2,0,2,3)
-    @square4 = Square.new(0,1,nil,4)
-    @square5 = Square.new(1,1,3,5)
-    @square6 = Square.new(2,1,nil,6)
-    @square7 = Square.new(0,2,2,7)
-    @square8 = Square.new(1,2,nil,8)
-    @square9 = Square.new(2,2,1,9)
+    @square1 = Square.new(0,0,1,1,1)
+    @square2 = Square.new(1,0,nil,2,2)
+    @square3 = Square.new(2,0,2,3,3)
+    @square4 = Square.new(0,1,nil,4,4)
+    @square5 = Square.new(1,1,3,5,5)
+    @square6 = Square.new(2,1,nil,6,6)
+    @square7 = Square.new(0,2,2,7,7)
+    @square8 = Square.new(1,2,nil,8,8)
+    @square9 = Square.new(2,2,1,9,9)
   end
   
   def squares

@@ -8,6 +8,10 @@ class Computer
     sq.text_value = "O"
     return sq
   end
+
+	def undo_move(sq)
+		sq.text_value = sq.number.to_s
+	end
  
 	def make_moves(*args)
 		args.each do |sq|
@@ -79,37 +83,38 @@ class Computer
     end
   end
 
-	def minimax(game, turn="computer")
+	def minimax(game, turn=:computer)
 		moves_with_score = {}
 
-		game.board.empty_squares.each do |move|
-			shadow_game = Marshal.load(Marshal.dump(game))
-			square_number = move.text_value
-			
-			if turn == "computer"
-				shadow_game.computer.make_move(shadow_game.send("square#{square_number}".to_sym))
-			elsif turn == "human"
-				shadow_game.human.make_move(shadow_game.send("square#{square_number}".to_sym))
+		while !game.over? 
+			game.board.empty_squares.each do |move|
+				square_number = move.text_value
+
+				if turn == :computer
+					game.computer.make_move(game.send("square#{square_number}".to_sym))
+				elsif turn == :human
+					game.human.make_move(game.send("square#{square_number}".to_sym))
+				end
+
+				score = score_board(game.board)
+				moves_with_score["square#{square_number}"] = score
+				game.computer.undo_move(game.send("square#{square_number}".to_sym))
+
 			end
 
-			# switch_turn(turn)
-			
-			score = score_board(shadow_game.board)
-			moves_with_score["square#{square_number}"] = score
-		end
-		
-		# raise moves_with_score.inspect
+			max_score = moves_with_score.values.max
+			min_score = moves_with_score.values.min
 
-		max_score = moves_with_score.values.max
-		min_score = moves_with_score.values.min
+			if turn == :computer
+				minimax_square = moves_with_score.select { |k,v| v == max_score }.keys.first
+				game.computer.send(:make_move, game.send(minimax_square.to_sym))
+			elsif turn == :human
+				minimax_square = moves_with_score.select { |k,v| v == min_score }.keys.first
+				game.human.send(:make_move, game.send(minimax_square.to_sym))
+			end
 
-		if turn == "computer"
-			minimax_square = moves_with_score.select { |k,v| v == max_score }.keys.first
-			game.computer.send(:make_move, game.send(minimax_square.to_sym))
-		elsif turn == "human"
-			minimax_square = moves_with_score.select { |k,v| v == min_score }.keys.first
-			game.human.send(:make_move, game.send(minimax_square.to_sym))
-		end
+			switch_turn(turn)
+		end		
 
 	end
 
@@ -123,10 +128,10 @@ class Computer
 	end
 
 	def switch_turn(turn)
-		if turn == "computer"
-			turn = "human"
-		else
-			turn = "computer"
+		if turn == :computer
+			turn = :human
+		elsif turn == :human
+			turn = :computer
 		end
 	end
 
