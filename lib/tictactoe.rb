@@ -1,3 +1,4 @@
+$: << '.'
 require 'colorize'
 require 'game'
 require 'board'

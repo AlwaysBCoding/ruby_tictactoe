@@ -3,7 +3,7 @@ require 'human'
 require 'computer'
 
 class Game
-  attr_accessor :human, :computer, :board
+  attr_accessor :human, :computer, :board, :moves_history
   
   def initialize(player2)
     @human = Human.new
@@ -11,7 +11,8 @@ class Game
       @computer = Computer.new
     end
     @board = Board.new
-  end
+		@moves_history = []
+ end
   
 	def squares 
 		board.squares.flatten

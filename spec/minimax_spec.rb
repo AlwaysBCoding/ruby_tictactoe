@@ -126,19 +126,19 @@ describe 'Computer' do
 				game.computer.score_board(game.board).should == 1
 			end
 
-			xit 'knows not to horizontally lose' do
+			it 'knows not to horizontally lose' do
 				game.human.make_moves(game.square4, game.square5)
 				computer_move = game.computer.minimax(game, :human)
 				computer_move.should == game.square6
 			end
 
-			xit 'knows not to vertically lose' do
+			it 'knows not to vertically lose' do
 				game.human.make_moves(game.square1, game.square7)
 				computer_move = game.computer.minimax(game, :human)
 				computer_move.should == game.square4
 			end
 					
-			xit 'knows not to diagonally lose' do
+			it 'knows not to diagonally lose' do
 				game.human.make_moves(game.square5, game.square3)
 				computer_move = game.computer.minimax(game, :human)
 				computer_move.should == game.square7

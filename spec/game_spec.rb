@@ -9,6 +9,10 @@ describe 'Game' do
     game.human.should_not be_nil
     game.board.should_not be_nil
   end
+
+	it 'records the game history' do
+		game.moves_history.should == []
+	end
   
   describe '#over?' do
     
