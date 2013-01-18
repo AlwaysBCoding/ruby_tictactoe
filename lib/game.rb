@@ -11,7 +11,6 @@ class Game
       @computer = Computer.new
     end
     @board = Board.new
-		@moves_history = []
  end
   
 	def squares 
