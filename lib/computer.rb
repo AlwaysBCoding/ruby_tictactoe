@@ -86,7 +86,7 @@ class Computer
 	def minimax(game, turn=:computer)
 		moves_with_score = {}
 
-		while !game.over? 
+		while !game.over?
 			game.board.empty_squares.each do |move|
 				square_number = move.text_value
 
@@ -101,18 +101,18 @@ class Computer
 				game.computer.undo_move(game.send("square#{square_number}".to_sym))
 
 			end
-
+			
 			max_score = moves_with_score.values.max
 			min_score = moves_with_score.values.min
 
 			if turn == :computer
 				minimax_square = moves_with_score.select { |k,v| v == max_score }.keys.first
-				game.computer.send(:make_move, game.send(minimax_square.to_sym))
+				return game.computer.send(:make_move, game.send(minimax_square.to_sym))
 			elsif turn == :human
 				minimax_square = moves_with_score.select { |k,v| v == min_score }.keys.first
-				game.human.send(:make_move, game.send(minimax_square.to_sym))
+				return game.human.send(:make_move, game.send(minimax_square.to_sym))
 			end
-
+			
 			switch_turn(turn)
 		end		
 

@@ -108,7 +108,6 @@ describe 'Computer' do
 			it 'returns 1 for a horizontal winning move' do
 				game.computer.make_moves(game.square1, game.square2)
 				computer_move = game.computer.minimax(game)
-				raise computer_move.inspect
 				game.computer.make_move(computer_move)
 				game.computer.score_board(game.board).should == 1
 			end
