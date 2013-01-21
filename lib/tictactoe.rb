@@ -2,7 +2,6 @@ $: << '~/Desktop/kata/tictactoe'
 require 'colorize'
 require 'game'
 require 'board'
-
 play_again = 'y'
 counter = 0
 
@@ -20,21 +19,21 @@ while play_again != 'n'
 
     print "\nMake your move >> "
     user_move = gets.chomp
-  
+
     if game.board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
       chosen_square = game.board.detect_square(user_move)
       game.human.make_move(chosen_square)
       game.computer.make_move(game.computer.calculate_response(game, chosen_square)) unless game.board.empty_squares.count == 0
-    else 
+    else
       puts "\nThat square has already been taken, what are you trying to pull?\n"
     end
-  
+
     game.board.draw()
 
   end
 
   game.ending_message()
-  
+
   print "\nPlay Again? y/n >> "
   play_again = gets.chomp.downcase ; break if play_again == 'n'
 
