@@ -10,6 +10,16 @@ describe 'Game' do
     game.board.should_not be_nil
   end
 
+  it "can have two humans or two computers" do
+    game2 = Game.new("H", "H")
+    game2.player1.should be_an_instance_of(Human)
+    game2.player2.should be_an_instance_of(Human)
+    game3 = Game.new("C", "C")
+    game3.player1.should be_an_instance_of(Computer)
+    game3.player2.should be_an_instance_of(Computer)
+
+  end
+
   describe '#over?' do
 
     it 'ends the game at a horizontal win' do
@@ -52,12 +62,10 @@ describe 'Game' do
   describe "#switch_turn(turn)" do
 
     it 'switches the turn after a move' do
-
-    game.turn.should == :player1
-    game.make_move(:player1, game.square5)
-    game.turn.should == :player2
-
-  end
+      game.turn.should == :player1
+      game.make_move(:player1, game.square5)
+      game.turn.should == :player2
+    end
 
   end # #switch_turn(turn)
 

@@ -5,7 +5,9 @@ require 'board'
 play_again = 'y'
 counter = 0
 
-print "\nPlay vs. a Human (H) or Computer (C) >> "
+print "\nPlayer1 is a: Human (H) or Computer (C) >> "
+player1 = gets.chomp.upcase
+print "\nPlayer2 is a: Human (H) or Computer (C) >> "
 player2 = gets.chomp.upcase
 
 while play_again != 'n'
