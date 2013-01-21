@@ -1,4 +1,4 @@
-$: << '.'
+$: << '~/Desktop/kata/tictactoe'
 require 'colorize'
 require 'game'
 require 'board'
