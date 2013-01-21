@@ -19,10 +19,42 @@ class Computer
 		end
 	end
 
-  def score_board(board)
-    return 1 if board.computer_win?
-    return -1 if board.human_win?
+  def score_board(board, player)
+    return 1 if board.send("#{player}_win?".to_sym)
+    return -1 if board.send("#{player}_win?".to_sym)
     return 0 if board.draw?
+    return 0.5
+  end
+
+  def switch_turn(turn)
+    turn = :player2 if turn == :player1
+    turn = :player1 if turn == :player2
+  end
+
+
+  def minimax(game, turn)
+    moves_with_score = {}
+    my_turn = turn
+
+    game.empty_squares.each do |move|
+      square_number = move.number
+
+      # if my_turn
+        make_move(move)
+        moves_with_score[square_number] = score_board(game.board, turn)
+
+        undo_move(move)
+        switch_turn(turn)
+
+      # elsif !my_turn
+
+      # end
+
+    end
+
+    raise moves_with_score.inspect
+
+
   end
 
   # def first_move(board, sq)

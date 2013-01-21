@@ -58,7 +58,7 @@ class Game
     puts "\nGAME OVER"
   end
 
-	def p1_win?
+	def player1_win?
 	  [0, 1, 2].each do |i|
     	p1_moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "X" && sq.y_value == i }
     	p1_moves_in_column = board.squares.flatten.select { |sq| sq.text_value == "X" && sq.x_value == i }
@@ -73,7 +73,7 @@ class Game
 
 	end
 
-	def p2_win?
+	def player2_win?
 		[0, 1, 2].each do |i|
     	p2_moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
     	p2_moves_in_column = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.x_value == i }
