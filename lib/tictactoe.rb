@@ -19,17 +19,26 @@ while play_again != 'n'
 
   while !game.over?
 
-    print "\n#{game.turn}: Make your move >> "
-    user_move = gets.chomp
+    if game.send(game.turn).is_a?(Human)
 
-    if game.board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
-      chosen_square = game.board.detect_square(user_move)
+      print "\n#{game.turn}: Make your move >> "
+      user_move = gets.chomp
+
+      if game.board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
+        chosen_square = game.board.detect_square(user_move)
+        game.make_move(game.turn, chosen_square)
+      else
+        puts "\nThat square has already been taken, what are you trying to pull?\n"
+      end
+
+      game.board.draw()
+
+    elsif game.send(game.turn).is_a?(Computer)
+
+      chosen_square = game.send(game.turn).minimax(game, turn)
       game.make_move(game.turn, chosen_square)
-    else
-      puts "\nThat square has already been taken, what are you trying to pull?\n"
-    end
 
-    game.board.draw()
+    end
 
   end
 
