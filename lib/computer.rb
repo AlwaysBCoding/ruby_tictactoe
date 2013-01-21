@@ -42,10 +42,11 @@ class Computer
   def minimax(game, player, turn)
     get_minimax_scores(game, player, turn)
     square = get_minimax_square(game, @@scores)
-    self.make_move(game.send(square.to_sym), player)
+    self.make_move(game.send(square), player)
   end
 
   def get_minimax_scores(game, player, turn)
+    @@counter += 1
     game.empty_squares.each do |move|
       make_move(move, turn)
 
@@ -56,6 +57,8 @@ class Computer
       end
 
       undo_move(move)
+      raise game.board.inspect if @@counter == 3
+      # STILL STUCK!!!
     end
   end
 
@@ -63,7 +66,7 @@ class Computer
     moves_with_score = {}
 
     game.empty_squares.each_with_index do |move, index|
-      moves_with_score["square#{move.number}"] = scores[index]
+      moves_with_score["square#{move.number}".to_sym] = scores[index]
     end
 
     minimax_square = moves_with_score.select { |k,v| v == scores.max }.keys.first
