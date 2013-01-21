@@ -24,7 +24,7 @@ class Game
   end
 
   def over?
- 		return true if board.computer_win? || board.human_win? || board.empty_squares.count == 0
+ 		return true if board.player1_win? || board.player2_win? || board.empty_squares.count == 0
   end
 
   def make_move(player, square)

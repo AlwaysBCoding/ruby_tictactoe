@@ -1,12 +1,23 @@
 class Computer
 
+  @@moves_with_score = []
+  @@counter = 0
+
+  def rmws
+    raise @@moves_with_score.inspect
+  end
+
   def has_square?(sq)
     return true if sq.text_value == "O"
   end
 
-  def make_move(sq)
-    sq.text_value = "O"
-    return sq
+  def make_move(sq, turn)
+    if turn == :player1
+      sq.text_value = "X"
+    elsif turn == :player2
+      sq.text_value = "O"
+      return sq
+    end
   end
 
 	def undo_move(sq)
@@ -21,39 +32,31 @@ class Computer
 
   def score_board(board, player)
     return 1 if board.send("#{player}_win?".to_sym)
-    return -1 if board.send("#{player}_win?".to_sym)
+    return -1 if board.send("#{opponent(player)}_win?".to_sym)
     return 0 if board.draw?
     return 0.5
   end
 
-  def switch_turn(turn)
-    turn = :player2 if turn == :player1
-    turn = :player1 if turn == :player2
+  def opponent(player)
+    return :player2 if player == :player1
+    return :player1 if player == :player2
   end
 
 
-  def minimax(game, turn)
-    moves_with_score = {}
-    my_turn = turn
-
+  def minimax(game, player, turn)
     game.empty_squares.each do |move|
-      square_number = move.number
+        square_number = move.number
 
-      # if my_turn
-        make_move(move)
-        moves_with_score[square_number] = score_board(game.board, turn)
+        make_move(move, turn)
+
+        if game.over?
+          @@moves_with_score << score_board(game.board, player)
+        else
+          minimax(game, player, opponent(player))
+        end
 
         undo_move(move)
-        switch_turn(turn)
-
-      # elsif !my_turn
-
-      # end
-
     end
-
-    raise moves_with_score.inspect
-
 
   end
 
