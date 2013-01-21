@@ -1,4 +1,4 @@
-$: << '~/Desktop/kata/tictactoe'
+$: << '~/Desktop/kata/tictactoe/lib'
 require 'colorize'
 require 'game'
 require 'board'
@@ -12,20 +12,19 @@ player2 = gets.chomp.upcase
 
 while play_again != 'n'
 
-  game = Game.new(player2)
-  game.print_instructions(player2) if counter == 0
+  game = Game.new(player1, player2)
+  game.print_instructions(player1, player2) if counter == 0
   game.board.draw()
   counter += 1
 
   while !game.over?
 
-    print "\nMake your move >> "
+    print "\n#{game.turn}: Make your move >> "
     user_move = gets.chomp
 
     if game.board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
       chosen_square = game.board.detect_square(user_move)
-      game.human.make_move(chosen_square)
-      game.computer.make_move(game.computer.calculate_response(game, chosen_square)) unless game.board.empty_squares.count == 0
+      game.make_move(game.turn, chosen_square)
     else
       puts "\nThat square has already been taken, what are you trying to pull?\n"
     end

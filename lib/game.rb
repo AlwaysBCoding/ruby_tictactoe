@@ -44,11 +44,13 @@ class Game
   #   return true if board.corners.select { |sq| sq.text_value == "X" }.count == 1 && board.sides.select { |sq| sq.text_value == "X" }.count == 1 && !computer.blocking_move(board, user_sq) && board.empty_squares.count == 6
   # end
 
-  def print_instructions(player2)
-    if player2 == "C"
-      print "\nYou have chosen to play against the unbeatble computer A.I. Choose a number to place an 'X' there.\n"
-    elsif player2 == "H"
-      "\nBREAK"
+  def print_instructions(player1, player2)
+    if player1 == "C" && player2 == "C"
+      print "\nTwo Computers will duel to the death...\n"
+    elsif player1 == "H" && player2 == "C" || player1 == "C" && player2 == "H"
+      print "\nYou have chosen to play against the unbeatble computer A.I. Choose a number to place your mark there...\n"
+    elsif player1 == "H" && player2 == "H"
+      print "\nIt's a duel between two mortals...\n"
     end
   end
 
@@ -56,37 +58,37 @@ class Game
     puts "\nGAME OVER"
   end
 
-	def player1_win?
+	def p1_win?
 	  [0, 1, 2].each do |i|
-    	human_moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "X" && sq.y_value == i }
-    	human_moves_in_column = board.squares.flatten.select { |sq| sq.text_value == "X" && sq.x_value == i }
-    	return true if human_moves_in_row.count == 3 || human_moves_in_column.count == 3
+    	p1_moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "X" && sq.y_value == i }
+    	p1_moves_in_column = board.squares.flatten.select { |sq| sq.text_value == "X" && sq.x_value == i }
+    	return true if p1_moves_in_row.count == 3 || p1_moves_in_column.count == 3
 
     	next if i == 0
-    	human_moves_in_diag = board.squares.flatten.select { |sq| sq.text_value == "X" && ( sq.diag_value == i || sq.diag_value == 3 ) }
-    	return true if human_moves_in_diag.count == 3
+    	p1_moves_in_diag = board.squares.flatten.select { |sq| sq.text_value == "X" && ( sq.diag_value == i || sq.diag_value == 3 ) }
+    	return true if p1_moves_in_diag.count == 3
    end
 
    return false
 
 	end
 
-	def player2_win?
+	def p2_win?
 		[0, 1, 2].each do |i|
-    	computer_moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
-    	computer_moves_in_column = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.x_value == i }
-    	return true if computer_moves_in_row.count == 3 || computer_moves_in_column.count == 3
+    	p2_moves_in_row = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
+    	p2_moves_in_column = board.squares.flatten.select { |sq| sq.text_value == "O" && sq.x_value == i }
+    	return true if p2_moves_in_row.count == 3 || p2_moves_in_column.count == 3
 
     next if i == 0
-    computer_moves_in_diag = board.squares.flatten.select { |sq| sq.text_value == "O" && ( sq.diag_value == i || sq.diag_value == 3 ) }
-    return true if computer_moves_in_diag.count == 3
+    p2_moves_in_diag = board.squares.flatten.select { |sq| sq.text_value == "O" && ( sq.diag_value == i || sq.diag_value == 3 ) }
+    return true if p2_moves_in_diag.count == 3
    end
 
    return false
 	end
 
 	def draw?
-		return true if empty_squares.count == 0 && !human_win? && !computer_win?
+		return true if empty_squares.count == 0 && !p1_win? && !p2_win?
 	end
 
 	def method_missing(method_name, *args)
