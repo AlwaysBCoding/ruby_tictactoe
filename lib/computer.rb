@@ -26,17 +26,22 @@ class Computer
 		end
 	end
 
-  def score_board(board, player)
-    return 1 if board.send("#{player}_win?".to_sym)
-    return -1 if board.send("#{opponent(player)}_win?".to_sym)
-    return 0 if board.draw?
-    return 0.5
+  def score_board(game, player)
+    return 1 if game.board.send("#{player}_win?".to_sym)
+    return -1 if game.board.send("#{opponent(player)}_win?".to_sym)
+    return 0 if game.board.draw?
   end
 
   def opponent(player)
     return :player2 if player == :player1
     return :player1 if player == :player2
   end
+
+  def switch_turn(turn)
+    return :player2 if turn == :player1
+    return :player1 if turn == :player2
+  end
+
 
 
   def minimax(game, player, turn)
@@ -46,18 +51,22 @@ class Computer
   end
 
   def get_minimax_scores(game, player, turn)
+    puts "Counter: #{@@counter}"
     @@counter += 1
     game.empty_squares.each do |move|
       make_move(move, turn)
+      game.board.draw()
 
       if game.over?
-        @@scores << score_board(game.board, player)
+        puts "Score: #{score_board(game, player)}"
+        puts "Counter: #{@@counter}"
+        @@counter +=1
+        @@scores << score_board(game, player)
       else
-        get_minimax_scores(game, player, opponent(player))
+        get_minimax_scores(game, player, switch_turn(turn))
       end
 
       undo_move(move)
-      raise game.board.inspect if @@counter == 3
       # STILL STUCK!!!
     end
   end

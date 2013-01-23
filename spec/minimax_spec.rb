@@ -1,5 +1,6 @@
 require 'computer'
 require 'game'
+require 'colorize'
 
 describe 'Computer' do
 
@@ -16,6 +17,7 @@ describe 'Computer' do
 			#game.make_move(:player2, game.square7)
 			game.make_move(:player2, game.square8)
 			#game.make_move(:player1, game.square9)
+			game.board.draw()
 			game.player1.minimax(game, :player1, :player1).should eq(game.square9)
 			# -1, 0
 		end
@@ -31,8 +33,8 @@ describe 'Computer' do
 			#game.make_move(:player2, game.square7)
 			#game.make_move(:player2, game.square8)
 			#game.make_move(:player1, game.square9)
+			game.board.draw()
 			game.player1.minimax(game, :player1, :player1).should eq(game.square8)
-			# -1, 1, 0
 		end
 
 	end
