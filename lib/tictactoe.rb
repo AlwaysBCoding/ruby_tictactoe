@@ -35,7 +35,7 @@ while play_again != 'n'
 
     elsif game.send(game.turn).is_a?(Computer)
 
-      chosen_square = game.send(game.turn).minimax(game, turn)
+      chosen_square = game.send(game.turn).minimax(game, player, turn)
       game.make_move(game.turn, chosen_square)
 
     end
