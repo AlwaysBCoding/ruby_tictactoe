@@ -46,32 +46,36 @@ class Computer
 
   def minimax(game, player, turn)
     square = get_minimax_square(game, player, turn)
+    return game.send(square)
     self.make_move(game.send(square), player)
   end
 
-  def get_minimax_score(game, player, turn)
+  def get_minimax_scores(game, player, turn)
+    # moves_with_score = {}
     scores = []
-    score = []
     return score_board(game, player) if game.over?
 
     game.empty_squares.each do |move|
       make_move(move, turn)
-      scores = [score, get_minimax_score(game, player, switch_turn(turn))].flatten
-      score = ( player == turn ? scores.max : scores.min )
+      # moves_with_score["square#{move.number}".to_sym] = get_minimax_score(game, player, switch_turn(turn))
+      scores << get_minimax_scores(game, player, switch_turn(turn))
       undo_move(move)
     end
 
-    return score
+    return scores
+    # return moves_with_score
   end
 
   def get_minimax_square(game, player, turn)
     moves_with_score = {}
+    scores = get_minimax_scores(game, player, turn)
 
-    game.empty_squares.each do |move|
-      moves_with_score["square#{move.number}".to_sym] = get_minimax_score(game, player, turn)
+    game.empty_squares.each_with_index do |move, i|
+      moves_with_score["square#{move.number}".to_sym] = scores[i].class == Fixnum ? scores[i] : scores[i].flatten.min
     end
 
-    p moves_with_score.inspect
+    max = moves_with_score.values.max
+    return moves_with_score.select { |k,v| v == max }.keys.first
     # minimax_square = moves_with_score.select { |k,v| }.keys.first
 
   end
