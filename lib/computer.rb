@@ -17,7 +17,7 @@ class Computer
   end
 
 	def undo_move(sq)
-		sq.text_value = sq.number.to_s
+		sq.text_value = sq.number
 	end
 
 	def make_moves(*args)
@@ -47,23 +47,19 @@ class Computer
   def minimax(game, player, turn)
     square = get_minimax_square(game, player, turn)
     return game.send(square)
-    self.make_move(game.send(square), player)
   end
 
   def get_minimax_scores(game, player, turn)
-    # moves_with_score = {}
     scores = []
     return score_board(game, player) if game.over?
 
     game.empty_squares.each do |move|
       make_move(move, turn)
-      # moves_with_score["square#{move.number}".to_sym] = get_minimax_score(game, player, switch_turn(turn))
       scores << get_minimax_scores(game, player, switch_turn(turn))
       undo_move(move)
     end
 
     return scores
-    # return moves_with_score
   end
 
   def get_minimax_square(game, player, turn)
@@ -71,13 +67,22 @@ class Computer
     scores = get_minimax_scores(game, player, turn)
 
     game.empty_squares.each_with_index do |move, i|
-      moves_with_score["square#{move.number}".to_sym] = scores[i].class == Fixnum ? scores[i] : scores[i].flatten.min
+      if scores[i].class == Fixnum
+        if scores[i] == 1
+          moves_with_score["square#{move.number}".to_sym] = 999
+        else
+          moves_with_score["square#{move.number}".to_sym] = scores[i]
+        end
+      else
+        frequency = scores[i].flatten.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
+        max_frequency = frequency.values.max
+        moves_with_score["square#{move.number}".to_sym] = frequency.select{ |k,v| v == max_frequency }.keys.first
+      end
     end
 
     max = moves_with_score.values.max
+    puts moves_with_score
     return moves_with_score.select { |k,v| v == max }.keys.first
-    # minimax_square = moves_with_score.select { |k,v| }.keys.first
-
   end
 
   # def first_move(board, sq)
