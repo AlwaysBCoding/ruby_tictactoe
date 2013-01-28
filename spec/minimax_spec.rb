@@ -74,21 +74,21 @@ describe 'Computer' do
 				#game.make_move(:player2, game.square7)
 				#game.make_move(:player2, game.square8)
 				#game.make_move(:player1, game.square9)
-				game.player1.minimax(game, :player1, :player1).should eq(game.square8)
+				game.player1.minimax(game, :player1, :player1).should eq(game.square4)
 			end
 
-			it 'knows how to take the corner when the human starts with the center' do
+			it 'knows how to take the middle when the human starts with a corner' do
 				game = Game.new("H", "C")
-				# game.make_move(:player2, game.square1)
+				game.make_move(:player1, game.square1)
 				# game.make_move(:player1, game.square2)
 				# game.make_move(:player2, game.square3)
 				# game.make_move(:player1, game.square4)
-				game.make_move(:player1, game.square5)
+				#game.make_move(:player1, game.square5)
 				# game.make_move(:player2, game.square6)
 				#game.make_move(:player2, game.square7)
 			#game.make_move(:player2, game.square8)
 				#game.make_move(:player1, game.square9)
-				game.player2.minimax(game, :player2, :player2).should eq(game.square1)
+				game.player2.minimax(game, :player2, :player2).should eq(game.square5)
 			end
 
 		end

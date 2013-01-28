@@ -57,17 +57,11 @@ class Computer
       make_move(move, turn)
       minimax_scores = get_minimax_scores(game, player, switch_turn(turn))
       if player == turn
-        if minimax_scores.class == Fixnum
-          scores << minimax_scores
-        elsif minimax_scores.class == Array
-          scores << minimax_scores.flatten.min
-        end
+        scores << minimax_scores if minimax_scores.class == Fixnum
+        scores << minimax_scores.flatten.min if minimax_scores.class == Array
       elsif player != turn
-        if minimax_scores.class == Fixnum
-          scores << minimax_scores
-        elsif minimax_scores.class == Array
-          scores << minimax_scores.flatten.max
-        end
+        scores << minimax_scores if minimax_scores.class == Fixnum
+        scores << minimax_scores.flatten.max if minimax_scores.class == Array
       end
       undo_move(move)
     end
