@@ -55,7 +55,20 @@ class Computer
 
     game.empty_squares.each do |move|
       make_move(move, turn)
-      scores << get_minimax_scores(game, player, switch_turn(turn))
+      minimax_scores = get_minimax_scores(game, player, switch_turn(turn))
+      if player == turn
+        if minimax_scores.class == Fixnum
+          scores << minimax_scores
+        elsif minimax_scores.class == Array
+          scores << minimax_scores.flatten.min
+        end
+      elsif player != turn
+        if minimax_scores.class == Fixnum
+          scores << minimax_scores
+        elsif minimax_scores.class == Array
+          scores << minimax_scores.flatten.max
+        end
+      end
       undo_move(move)
     end
 
@@ -67,17 +80,10 @@ class Computer
     scores = get_minimax_scores(game, player, turn)
 
     game.empty_squares.each_with_index do |move, i|
-      if scores[i].class == Fixnum
-        if scores[i] == 1
-          moves_with_score["square#{move.number}".to_sym] = 999
-        else
-          moves_with_score["square#{move.number}".to_sym] = scores[i]
-        end
-      else
-        frequency = scores[i].flatten.inject(Hash.new(0)) { |h,v| h[v] += 1; h }
-        max_frequency = frequency.values.max
-        moves_with_score["square#{move.number}".to_sym] = frequency.select{ |k,v| v == max_frequency }.keys.first
-      end
+      # if player == turn
+        moves_with_score["square#{move.number}".to_sym] = scores[i].class == Fixnum ? scores[i] : scores[i].flatten.min
+      # elsif player!= turn
+      # end
     end
 
     max = moves_with_score.values.max
