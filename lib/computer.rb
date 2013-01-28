@@ -56,13 +56,14 @@ class Computer
     game.empty_squares.each do |move|
       make_move(move, turn)
       minimax_scores = get_minimax_scores(game, player, switch_turn(turn))
+
+      scores << minimax_scores if minimax_scores.class == Fixnum
       if player == turn
-        scores << minimax_scores if minimax_scores.class == Fixnum
         scores << minimax_scores.flatten.min if minimax_scores.class == Array
       elsif player != turn
-        scores << minimax_scores if minimax_scores.class == Fixnum
         scores << minimax_scores.flatten.max if minimax_scores.class == Array
       end
+
       undo_move(move)
     end
 
@@ -74,10 +75,7 @@ class Computer
     scores = get_minimax_scores(game, player, turn)
 
     game.empty_squares.each_with_index do |move, i|
-      # if player == turn
-        moves_with_score["square#{move.number}".to_sym] = scores[i].class == Fixnum ? scores[i] : scores[i].flatten.min
-      # elsif player!= turn
-      # end
+      moves_with_score["square#{move.number}".to_sym] = scores[i]
     end
 
     max = moves_with_score.values.max
