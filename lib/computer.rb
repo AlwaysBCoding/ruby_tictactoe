@@ -1,9 +1,5 @@
 class Computer
 
-  def has_square?(sq)
-    return true if sq.text_value == "O"
-  end
-
   def make_move(sq, turn)
     if turn == :player1
       sq.text_value = "X"
@@ -15,12 +11,6 @@ class Computer
 
 	def undo_move(sq)
 		sq.text_value = sq.number
-	end
-
-	def make_moves(*args)
-		args.each do |sq|
-			sq.text_value = "O"
-		end
 	end
 
   def score_board(game, player)
@@ -40,21 +30,26 @@ class Computer
   end
 
   def minimax(game, player, turn)
-    square = get_minimax_square(game, player, turn)
+    if game.empty_squares.count == 9
+      square = :square5
+    elsif game.empty_squares.count == 8
+      square = :square5 if game.empty_squares.include?(game.square5)
+      square = :square1 if !game.empty_squares.include?(game.square5)
+    else
+      square = get_minimax_square(game, player, turn)
+    end
     return game.send(square)
   end
 
   def get_minimax_scores(game, player, turn)
     scores = []
-    return score_board(game, player) if game.over?
+    return [score_board(game, player)] if game.over?
 
     game.empty_squares.each do |move|
       make_move(move, turn)
       minimax_scores = get_minimax_scores(game, player, switch_turn(turn))
 
-      if minimax_scores.class == Fixnum
-        scores << minimax_scores
-      elsif player == turn
+      if player == turn
         scores << minimax_scores.min
       elsif player != turn
         scores << minimax_scores.max
@@ -75,7 +70,6 @@ class Computer
     end
 
     max = moves_with_score.values.max
-    puts moves_with_score
     return moves_with_score.select { |k,v| v == max }.keys.first
   end
 

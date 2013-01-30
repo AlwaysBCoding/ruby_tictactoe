@@ -23,23 +23,23 @@ describe 'Game' do
   describe '#over?' do
 
     it 'ends the game at a horizontal win' do
-      game.player2.make_move(game.board.square1)
-      game.player2.make_move(game.board.square2)
-      game.player2.make_move(game.board.square3)
+      game.player1.make_move(game.board.square1)
+      game.player1.make_move(game.board.square2)
+      game.player1.make_move(game.board.square3)
       game.over?.should be_true
     end
 
     it 'ends the game at a vertical win' do
-      game.player2.make_move(game.board.square3)
-      game.player2.make_move(game.board.square6)
-      game.player2.make_move(game.board.square9)
+      game.player1.make_move(game.square3)
+      game.player1.make_move(game.square6)
+      game.player1.make_move(game.square9)
       game.over?.should be_true
     end
 
     it 'ends the game at a diagonal win' do
-      game.player2.make_move(game.board.square3)
-      game.player2.make_move(game.board.square5)
-      game.player2.make_move(game.board.square7)
+      game.player1.make_move(game.board.square3)
+      game.player1.make_move(game.board.square5)
+      game.player1.make_move(game.board.square7)
       game.over?.should be_true
     end
 
