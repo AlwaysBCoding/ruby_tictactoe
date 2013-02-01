@@ -1,4 +1,4 @@
-$: << '~/Desktop/kata/tictactoe/lib'
+$: << File.expand_path(File.dirname(__FILE__) + "/../lib")
 require 'colorize'
 require 'game'
 require 'board'
