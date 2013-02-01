@@ -14,7 +14,7 @@ board_size = gets.chomp
 
 while play_again != 'n'
 
-  game = Game.new(player1, player2)
+  game = Game.new(player1, player2, board_size.to_i)
   game.print_instructions(player1, player2) if counter == 0
   game.board.draw()
   counter += 1
@@ -26,7 +26,7 @@ while play_again != 'n'
       print "\n#{game.turn}: Make your move >> "
       user_move = gets.chomp
 
-      if game.board.empty_squares.find { |sq| sq.text_value == user_move.to_i }
+      if game.board.empty_squares.find { |sq| sq.text_value == user_move }
         chosen_square = game.board.detect_square(user_move)
         game.make_move(game.turn, chosen_square)
       else

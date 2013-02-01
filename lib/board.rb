@@ -11,15 +11,15 @@ class Board
   def initialize(size=3)
     @size = size
     if @size == 3
-      @square1 = Square.new(0,0,1,1,1)
-      @square2 = Square.new(1,0,nil,2,2)
-      @square3 = Square.new(2,0,2,3,3)
-      @square4 = Square.new(0,1,nil,4,4)
-      @square5 = Square.new(1,1,3,5,5)
-      @square6 = Square.new(2,1,nil,6,6)
-      @square7 = Square.new(0,2,2,7,7)
-      @square8 = Square.new(1,2,nil,8,8)
-      @square9 = Square.new(2,2,1,9,9)
+      @square1 = Square.new(0,0,1,"1",1)
+      @square2 = Square.new(1,0,nil,"2",2)
+      @square3 = Square.new(2,0,2,"3",3)
+      @square4 = Square.new(0,1,nil,"4",4)
+      @square5 = Square.new(1,1,3,"5",5)
+      @square6 = Square.new(2,1,nil,"6",6)
+      @square7 = Square.new(0,2,2,"7",7)
+      @square8 = Square.new(1,2,nil,"8",8)
+      @square9 = Square.new(2,2,1,"9",9)
     elsif @size == 4
       @square1 = Square.new(0,0,nil,"01",1)
       @square2 = Square.new(1,0,nil,"02",2)
@@ -83,11 +83,11 @@ class Board
   end
 
   def detect_square(val)
-    squares.flatten.detect { |sq| sq.text_value == val.to_i }
+    squares.flatten.detect { |sq| sq.text_value == val }
   end
 
 	def player1_win?
-	  [0, 1, 2].each do |i|
+	  (0..@size-1).each do |i|
     	human_moves_in_row = squares.flatten.select { |sq| sq.text_value == "X" && sq.y_value == i }
     	human_moves_in_column = squares.flatten.select { |sq| sq.text_value == "X" && sq.x_value == i }
     	return true if human_moves_in_row.count == 3 || human_moves_in_column.count == 3
@@ -102,7 +102,7 @@ class Board
 	end
 
 	def player2_win?
-		[0, 1, 2].each do |i|
+		(0..@size-1).each do |i|
     	computer_moves_in_row = squares.flatten.select { |sq| sq.text_value == "O" && sq.y_value == i }
     	computer_moves_in_column = squares.flatten.select { |sq| sq.text_value == "O" && sq.x_value == i }
     	return true if computer_moves_in_row.count == 3 || computer_moves_in_column.count == 3
