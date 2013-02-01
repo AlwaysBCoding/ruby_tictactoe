@@ -9,7 +9,10 @@ describe 'Board' do
     board.should be_an_instance_of(Board)
   end
 
-  it 'can draw a board' do
+  it 'can draw a 3x3 board and a 4x4 board' do
+    board = Board.new(3)
+    board.draw()
+    board = Board.new(4)
     board.draw()
   end
 

@@ -9,6 +9,8 @@ print "\nPlayer1 is a: Human (H) or Computer (C) >> "
 player1 = gets.chomp.upcase
 print "\nPlayer2 is a: Human (H) or Computer (C) >> "
 player2 = gets.chomp.upcase
+print "\nChoose Board Size (3) or (4) >> "
+board_size = gets.chomp
 
 while play_again != 'n'
 

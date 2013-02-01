@@ -5,12 +5,12 @@ require 'computer'
 class Game
   attr_accessor :player1, :player2, :board, :turn
 
-  def initialize(player1, player2)
+  def initialize(player1, player2, size=3)
     @player1 = Human.new if player1 == "H"
     @player1 = Computer.new if player1 == "C"
     @player2 = Human.new if player2 == "H"
     @player2 = Computer.new if player2 == "C"
-    @board = Board.new
+    @board = Board.new(size)
     @turn = :player1
  end
 
