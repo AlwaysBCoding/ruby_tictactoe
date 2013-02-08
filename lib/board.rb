@@ -10,47 +10,40 @@ class Board
 
   def initialize(size=3)
     @size = size
-    if @size == 3
-      @square1 = Square.new(0,0,1,"1",1)
-      @square2 = Square.new(1,0,nil,"2",2)
-      @square3 = Square.new(2,0,2,"3",3)
-      @square4 = Square.new(0,1,nil,"4",4)
-      @square5 = Square.new(1,1,3,"5",5)
-      @square6 = Square.new(2,1,nil,"6",6)
-      @square7 = Square.new(0,2,2,"7",7)
-      @square8 = Square.new(1,2,nil,"8",8)
-      @square9 = Square.new(2,2,1,"9",9)
-    elsif @size == 4
-      @square1 = Square.new(0,0,1,"01",1)
-      @square2 = Square.new(1,0,nil,"02",2)
-      @square3 = Square.new(2,0,nil,"03",3)
-      @square4 = Square.new(3,0,2,"04",4)
-      @square5 = Square.new(0,1,nil,"05",5)
-      @square6 = Square.new(1,1,1,"06",6)
-      @square7 = Square.new(2,1,2,"07",7)
-      @square8 = Square.new(3,1,nil,"08",8)
-      @square9 = Square.new(0,2,nil,"09",9)
-      @square10 = Square.new(1,2,2,"10",10)
-      @square11 = Square.new(2,2,1,"11",11)
-      @square12 = Square.new(3,2,nil,"12",12)
-      @square13 = Square.new(0,3,2,"13",13)
-      @square14 = Square.new(1,3,nil,"14",14)
-      @square15 = Square.new(2,3,nil,"15",15)
-      @square16 = Square.new(3,3,1,"16",16)
+    (@size**2).times do |i|
+      number = i + 1
+      x_axis = i % @size
+      y_axis = i / @size
+      if @size == 3
+        if number == 1 || number == 9
+          diag = 1
+        elsif number == 3 || number == 7
+          diag = 2
+        elsif number == 5
+          diag = 3
+        else
+          diag = nil
+        end
+      elsif @size == 4
+        if number == 1 || number == 6 || number == 11 || number == 16
+          diag = 1
+        elsif number == 4 || number == 7 || number == 10 || number == 13
+          diag = 2
+        else
+          diag = nil
+        end
+      end
+      instance_variable_set("@square#{i+1}".to_sym, Square.new(x_axis,y_axis,diag,"#{number}",number))
     end
   end
 
   def squares
-    if @size == 3
-      [ [@square1, @square2, @square3],
-        [@square4, @square5, @square6],
-        [@square7, @square8, @square9] ]
-    elsif @size == 4
-      [ [@square1, @square2, @square3, @square4],
-        [@square5, @square6, @square7, @square8],
-        [@square9, @square10, @square11, @square12],
-        [@square13, @square14, @square15, @square16] ]
+    array = []
+    @size.times { array << [] }
+    (@size**2).times do |i|
+      array[(i % @size)] << instance_variable_get("@square#{i+1}".to_sym)
     end
+    return array
   end
 
   def draw
