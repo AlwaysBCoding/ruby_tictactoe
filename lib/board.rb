@@ -49,20 +49,17 @@ class Board
   def draw
     puts "\n"
     visual_board = []
-    if @size == 3
-      visual_board << " #{@square1.colored_text_value} | #{@square2.colored_text_value} | #{@square3.colored_text_value} "
-      visual_board << " - - - - - "
-      visual_board << " #{@square4.colored_text_value} | #{@square5.colored_text_value} | #{@square6.colored_text_value} "
-      visual_board << " - - - - - "
-      visual_board << " #{@square7.colored_text_value} | #{@square8.colored_text_value} | #{@square9.colored_text_value} "
-    elsif @size == 4
-      visual_board << " #{@square1.colored_text_value} | #{@square2.colored_text_value} | #{@square3.colored_text_value} | #{@square4.colored_text_value } "
-      visual_board << " - - - - - - - - - "
-      visual_board << " #{@square5.colored_text_value} | #{@square6.colored_text_value} | #{@square7.colored_text_value} | #{@square8.colored_text_value } "
-      visual_board << " - - - - - - - - - "
-      visual_board << " #{@square9.colored_text_value} | #{@square10.colored_text_value} | #{@square11.colored_text_value} | #{@square12.colored_text_value } "
-      visual_board << " - - - - - - - - - "
-      visual_board << " #{@square13.colored_text_value} | #{@square14.colored_text_value} | #{@square15.colored_text_value} | #{@square16.colored_text_value } "
+    (@size*2 - 1).times do |i|
+      if i.even?
+        string = ""
+        @size.times do |i2|
+          string += " #{instance_variable_get("@square#{(i2+1)+((i/2)*@size)}".to_sym).colored_text_value} "
+          string += "|" unless i2+1 == @size
+        end
+        visual_board << string
+      elsif i.odd?
+        visual_board << " -" * (@size*2)
+      end
     end
     visual_board.each { |row| puts row }
   end
@@ -76,7 +73,7 @@ class Board
   end
 
   def detect_square(val)
-    squares.flatten.detect { |sq| sq.text_value == val }
+    squares.flatten.detect { |sq| sq.text_value.to_s == val.to_s }
   end
 
 	def player1_win?

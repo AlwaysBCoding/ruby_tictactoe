@@ -26,7 +26,7 @@ while play_again != 'n'
       print "\n#{game.turn}: Make your move >> "
       user_move = gets.chomp
 
-      if game.board.empty_squares.find { |sq| sq.text_value == user_move }
+      if game.board.empty_squares.find { |sq| sq.text_value.to_s == user_move.to_s }
         chosen_square = game.board.detect_square(user_move)
         game.make_move(game.turn, chosen_square)
       else
@@ -41,7 +41,6 @@ while play_again != 'n'
       game.make_move(game.turn, chosen_square)
 
       game.board.draw()
-
     end
 
   end
